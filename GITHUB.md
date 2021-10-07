@@ -39,7 +39,7 @@ Settings -> SSH -> New SSH key
 ## 5. Klonujemy repozytorium z githuba na dysk
 
 ```
-git clone ssh
+git clone git@github.com:mkzetpl/dokumentacja.git
 or
 git clone https://github.com/mkzet/dokumentacja.git
 ```
