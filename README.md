@@ -1,2 +1,0 @@
-# dokumentacja
-Nasza dokumentacja
