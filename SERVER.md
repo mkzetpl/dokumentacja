@@ -53,7 +53,8 @@ systemctl disable apache2
 ```
 
 ```
-apt remove apache2
+apt --purge remove apache2
+rm -rf /etc/apache2 /usr/lib/apache2 /usr/include/apache2
 ```
 
 ---
@@ -254,6 +255,7 @@ Uninstall Firewalla
 
 ```
 apt remove ufw
+apt purge ufw
 ```
 
 <br><br>
@@ -267,10 +269,13 @@ Type: A Record
 Host: www
 Value: adrei IP
 
-dodatkowy rekord - niezawsze konieczny
+dodatkowy rekord
 Type: A Record
-Host: @
+Host:
 Value: adres IP
+
+Jeśli jest subdomena to:
+Dodajemy powyższe rekordy również dla subdomeny.
 
 ```
 
@@ -297,23 +302,30 @@ server {
         root /home/www/mkzet;
 
         # Add index.php to the list if you are using PHP
-        index index.html index.htm index.nginx-debian.html;
+        index index.html index.htm;
 
 
         location / {
                 try_files $uri /index.html;
         }
-
-         location /api {
-            proxy_pass http://localhost:3001;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection 'upgrade';
-            proxy_set_header Host $host;
-            proxy_cache_bypass $http_upgrade;
-        }
-
 }
+
+server {
+        server_name admin.mkzet.pl www.admin.mkzet.pl;
+        listen 80;
+        listen [::]:80;
+
+        root /home/www/mkzet/admin;
+
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm;
+
+
+        location / {
+                try_files $uri /index.html;
+        }
+}
+
 ```
 
 Uaktywnienie naszej strony - linkuje pliki w katalogach
@@ -368,8 +380,8 @@ ufw delete allow 'Nginx HTTP'
 Przypisanie certyfikatów domenie i sub domenie ( ważność 90 dni ? )
 
 ```
-certbot --nginx -d example.com -d www.example.com
-certbot --nginx -d example.com -d www.example.com -d admin.example.com
+certbot --nginx -d mkzet.pl -d www.mkzet.pl
+certbot --nginx -d subdomena.mkzet.pl -d www.subdomena.mkzet.pl
 ```
 
 timer that will run twice a day and automatically renew any certificate that’s within thirty days of expiration

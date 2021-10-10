@@ -51,6 +51,12 @@ git clone https://github.com/mkzet/dokumentacja.git
 
 # Komendy git-a
 
+Ustawia gita w katalogu
+
+```
+git init
+```
+
 Sprawdzamy czy jakieś pliki zostały zmienone
 
 ```

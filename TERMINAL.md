@@ -18,7 +18,8 @@ cd ..
 cd ~ - katalog user
 cd / - root
 logout or exit
-clear
+clear - clear terminal
+Ctrl + L - clear terminal
 cp -r ./doc ./dokumentacja  - kopiuje folder doc do folderu dokumentacja
 cp -r ./doc/. ./dokumentacja   - kopiuje pliki z doc do folderu dokumentacja
 ```
