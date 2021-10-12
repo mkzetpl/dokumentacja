@@ -1,43 +1,3 @@
-# EXTENSIONS REMOTE - WSL
-
-# COLOR THEME EXTENSION
-
-1. Monokai Pro - filter spectrum
-2. Material Icon Theme
-
-# PRETTIER
-
-Editor: Default Formatter --> Prettier
-Editor: Format On Save --> ON
-
-# SETTINGS
-
-Editor: Font Family --> Cascadia Code, Fira Code
-Editor: Font Size --> 18
-Editor: Line Height --> 28
-Editor: Word Wrap --> ON
-Editor: Detect Indentation --> OFF
-Editor: Tab Size --> 3
-Prettier: Tab Width --> 3
-Window: Zoom Level --> 0
-Editor: Font Ligatures --> editor.fontLigatures": true
-
-# TERMINAL
-
-1. Install zsh with your package manager
-   sudo apt install zsh
-
-2. Make your default shell
-   chsh -s $(which zsh)
-
-3. Restart your terminal
-
-4. To verify the shell
-   echo $SHELL
-
-5. Terminal > Integrated: Font Family --> FuraMono Nerd Font
-6. Terminal > Integrated: Font Size --> 18
-
 # VSCODE SHORTCUTS
 
 Start + strzałki --> ustawianie okien po lewej, po prawej i fullscreen
@@ -52,7 +12,7 @@ p + tab --> <p></p>
 Ctrl + -> i Ctrl + <-- przeskakuje wyrazy
 END --> przeskocz na koniec wiersza
 HOME --> przeskocz na początek wiersza
-END + strzałka w dół --> przejdź na koniec dokumentu
+END + strzałka w dół --> prz dokumentuejdź na koniec
 END + strzałka w górę --> przejdź na początek dokumentu
 
 lorem + TAB --> da nam paragraf tekstu
@@ -122,10 +82,12 @@ nav>ul>li\*5>a[href=www.$.pl]{Click me}
 </nav>
 ```
 
-# EXTENSIONS
-
-Polecane:
-Live Share
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 # LINKS
 
