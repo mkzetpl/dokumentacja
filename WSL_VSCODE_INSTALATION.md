@@ -92,7 +92,7 @@ Jeśli wyskoczy menu wybieramy 0
 
 Restartujemy terminal
 
-To verify the shell it should print /usr/bin/zsh type
+Sprawdzamy typ shell-a powinien być /usr/bin/zsh
 
 ```
 echo $SHELL
@@ -106,13 +106,13 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 ```
 
-To access the builtin configuration wizard right from your terminal type.
+Konfigurujemy powerlevel10k z terminala za pomocą polecenia
 
 ```
 p10k configure
 ```
 
-Plugins for autosuggestion and syntax highlighting
+Instalujemy pluginy do autosugesti i podświetlania
 
 ```
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
@@ -126,39 +126,39 @@ Otwieramy plik konfiguracyjny
 vim ~/.zshrc
 ```
 
-Find the ZSH_THME and replace it with
+Znajdujemy wpis ZSH_THME i zastępujemy go kodem
 
 ```
 ZSH_THEME="powerlevel10k/powerlevel10k"
 ```
 
-Also add this line below to use Nerd Patched fonts?
+Poniżej dodajemy linie kodu do użycia Nerd font ?
 
 ```
 POWERLEVEL9K_MODE="nerdfont-complete"
 ```
 
-If you want to enable auto correction then find uncomment the line by removing # from
+Aby uruchomić autokorekcję musimy odhashować linię kodu
 
 ```
 #ENABLE_CORRECTION="true"
-//to this
+na
 ENABLE_CORRECTION="true"
 ```
 
-Now we will add plugins so scroll down a little till you find
+Następnie znajdujemy linie
 
 ```
 plugins=(git)
 ```
 
-And now add the plugins which we downloaded, like this
+I dodajemy pluginy
 
 ```
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 ```
 
-Now the last step
+Konfigurujemy powerlevel10k
 
 ```
 p10k configure
