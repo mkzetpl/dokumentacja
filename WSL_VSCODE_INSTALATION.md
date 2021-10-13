@@ -44,8 +44,8 @@ wsl --list --verbose
 Po instalacji uaktalniamy ubuntu
 
 ```
-apt update
-apt dist-upgrade
+sudo apt update
+sudo apt dist-upgrade
 ```
 
 ## 2. Klikamy na ikonce chevron i wybieramy settings i default profile wybieramy Ubuntu
