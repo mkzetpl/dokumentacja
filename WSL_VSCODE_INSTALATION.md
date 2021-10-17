@@ -46,6 +46,9 @@ Możemy resetować i odinstalować ubuntu
 ```
 Ustawienia --> Aplikacje --> Ubuntu --> Opcje zaawansowane --> Resetuj
 Ustawienia --> Aplikacje --> Ubuntu --> Opcje zaawansowane --> Odinstaluj
+
+po resecie uruchamiamy ponownie instalację
+wsl --install -d Ubuntu-20.04
 ```
 
 <br>
@@ -119,19 +122,10 @@ Instalacja powerlevel10k
 
 ```
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.plugins/powerlevel10k
-
-or
-
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
 ```
 
 ```
 echo 'source ~/.plugins/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
-
-or
-
-echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
-
 ```
 
 Restartujemy terminal i konfigurujemy powerlevel10k
@@ -144,7 +138,7 @@ p10k configure
 
 <br><br>
 <br><br>
-Instalujemy pluginy do autosugesti i podświetlania
+Instalujemy pluginy do autosugesti i podświetlania (z lub bez sudo)
 
 ```
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.plugins/zsh-autosuggestions
@@ -154,23 +148,17 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.plugins/zsh-au
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.plugins/zsh-syntax-highlighting
 ```
 
-Otwieramy plik konfiguracyjny
-
-```
-vim ~/.zshrc
-```
-
 Dodajemy pluginy do pliku .zshrc
 
 ```
-source ~/.plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-lub
-
 echo 'source ~/.plugins/zsh-autosuggestions/zsh-autosuggestions.zsh' >>~/.zshrc
+```
+
+```
 echo 'source ~/.plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >>~/.zshrc
 ```
+
+Resetujemy Terminal
 
 <br>
 <br>
