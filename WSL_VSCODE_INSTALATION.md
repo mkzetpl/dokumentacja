@@ -28,6 +28,13 @@ Instalacja wybranej dystrybucji
 wsl --install -d Ubuntu-20.04
 ```
 
+Zrestartować komputer
+
+```
+Ustawić login
+Ustawić hasło
+```
+
 Sprawdzamy czy mamy wersję wsl-a v2
 
 ```
@@ -104,15 +111,25 @@ echo $SHELL
 Instalacja powerlevel10k
 
 ```
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.plugins/powerlevel10k
+
+or
+
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
 ```
 
 ```
+echo 'source ~/.plugins/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+
+or
+
 echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 ```
 
-Konfigurujemy powerlevel10k z terminala za pomocą polecenia
+Konfigurujemy powerlevel10k po restarcie terminala
+
+Możemy ponownie zkonfigurować powerlevel10k z terminala za pomocą polecenia
 
 ```
 p10k configure
@@ -120,15 +137,14 @@ p10k configure
 
 <br><br>
 <br><br>
-<br><br>
 Instalujemy pluginy do autosugesti i podświetlania
 
 ```
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.plugins/zsh-autosuggestions
 ```
 
 ```
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.plugins/zsh-syntax-highlighting
 ```
 
 Otwieramy plik konfiguracyjny
@@ -137,42 +153,16 @@ Otwieramy plik konfiguracyjny
 vim ~/.zshrc
 ```
 
-Znajdujemy wpis ZSH_THME i zastępujemy go kodem
+Dodajemy pluginy do pliku .zshrc
 
 ```
-ZSH_THEME="powerlevel10k/powerlevel10k"
-```
+source ~/.plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-Poniżej dodajemy linie kodu do użycia Nerd font ?
+lub
 
-```
-POWERLEVEL9K_MODE="nerdfont-complete"
-```
-
-Aby uruchomić autokorekcję musimy odhashować linię kodu
-
-```
-#ENABLE_CORRECTION="true"
-na
-ENABLE_CORRECTION="true"
-```
-
-Następnie znajdujemy linie
-
-```
-plugins=(git)
-```
-
-I dodajemy pluginy
-
-```
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-```
-
-Konfigurujemy powerlevel10k
-
-```
-p10k configure
+echo 'source ~/.plugins/zsh-autosuggestions/zsh-autosuggestions.zsh' >>~/.zshrc
+echo 'source ~/.plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >>~/.zshrc
 ```
 
 <br>
