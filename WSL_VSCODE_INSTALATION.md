@@ -41,6 +41,13 @@ Sprawdzamy czy mamy wersję wsl-a v2
 wsl --list --verbose
 ```
 
+Możemy resetować i odinstalować ubuntu
+
+```
+Ustawienia --> Aplikacje --> Ubuntu --> Opcje zaawansowane --> Resetuj
+Ustawienia --> Aplikacje --> Ubuntu --> Opcje zaawansowane --> Odinstaluj
+```
+
 <br>
 <br>
 
