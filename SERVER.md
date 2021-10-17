@@ -14,10 +14,10 @@ Wklejamy publiczny klucz z naszego koputera na serwer.
 ssh-copy-id root@46.41.143.70
 ```
 
-Lub kopiujemy klucz publiczny SSH Key do clipbordu za pomocą kodu i wklejamy w panelu klienta.
+Lub kopiujemy klucz publiczny SSH Key i wklejamy w panelu klienta.
 
 ```
-pbcopy < ~/.ssh/id_rsa.pub
+cat ~/.ssh/id_rsa.pub
 ```
 
 <br><br>
@@ -308,6 +308,17 @@ server {
         location / {
                 try_files $uri /index.html;
         }
+
+        location /users {
+        proxy_pass http://localhost:3001; #whatever port your app runs on
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+
 }
 
 server {
@@ -492,8 +503,8 @@ sudo apt-get install nginx
 
 ## LINKS
 
-- [Kurs Node.js + Express.js #12 - Deployment aplikacji (VPS)](https://www.youtube.com/watch?v=eaA8Ol6I16w)
-- [Prosty i szybki deploy apki webowej Node.js na serwer VPS](https://www.youtube.com/watch?v=afwro39R6io)
+-  [Kurs Node.js + Express.js #12 - Deployment aplikacji (VPS)](https://www.youtube.com/watch?v=eaA8Ol6I16w)
+-  [Prosty i szybki deploy apki webowej Node.js na serwer VPS](https://www.youtube.com/watch?v=afwro39R6io)
 
 https://www.youtube.com/watch?v=Nxw2j1-srVc&t=2427s
 
@@ -556,17 +567,18 @@ ctrl+C
 
 ```
 sudo npm i pm2 -g
-pm2 start app (or whatever your file name)
+pm2 start nazwa_aplikacji (or whatever your file name)
 
 # Other pm2 commands
-pm2 show app
+pm2 show nazwa_aplikacji
 pm2 status
-pm2 restart app
-pm2 stop app
+pm2 restart nazwa_aplikacji
+pm2 stop nazwa_aplikacji
 pm2 logs (Show log stream)
 pm2 flush (Clear logs)
 
 # To make sure app starts when reboot
+pm2 save
 pm2 startup ubuntu
 ```
 
@@ -628,9 +640,9 @@ https://namecheap.pxf.io/c/1299552/386170/5618
 
 Choose "Custom nameservers" and add these 3
 
-- ns1.digitalocean.com
-- ns2.digitalocean.com
-- ns3.digitalocean.com
+-  ns1.digitalocean.com
+-  ns2.digitalocean.com
+-  ns3.digitalocean.com
 
 It may take a bit to propogate
 

@@ -5,14 +5,21 @@
 ## Komendy
 
 ```
-sudo - prawa administratora root-a
+. --> katalog w którym się znajdujemy
+.. --> katalog powyżej
+sudo - prawa administratora root-a ( superuser do )
+sudo apt install --> installs package
+sudo apt remove --> removes package
 rm -rf nazwa_folderu
 cat nazwa_pliku
 touch nazwa_pliku
 vim nazwa_pliku
 cp nazwa_pliku_1 nazwa_pliku_2
-pwd
+mv --> przenoszenie pliku lub zmiana nazwy pliku
+pwd --> print working directory
+less plik.txt --> możemy przeglądać plik page down i page up
 whoami
+cd --> change directory
 cd nazwa_folderu
 cd ..
 cd ~ - katalog user
@@ -22,6 +29,17 @@ clear - clear terminal
 Ctrl + L - clear terminal
 cp -r ./doc ./dokumentacja  - kopiuje folder doc do folderu dokumentacja
 cp -r ./doc/. ./dokumentacja   - kopiuje pliki z doc do folderu dokumentacja
+cp *.* ~/Picture --> skopiuj wszystkie pliki do katalogu
+lsblk --> list block devices
+Tab --> autocomplition
+unzip plik.zip --> rozpakowanie pliku
+cp --help --> wyświetla pomoc
+man komenda --> wyświetla manual dla komendy
+```
+
+```
+cal --> wyświetl kalendarz
+date --> wyświetl datę
 ```
 
 Kopiowanie na serwer?
@@ -30,6 +48,8 @@ Kopiowanie na serwer?
 rsync -av . root@169.99.146.57:~/superowsame.com
 ```
 
+Ctrl + Backspace --> usówa cełe słowo
+Ctrl + strzałki --> przeskakuje słowa
 <br>
 <br>
 <br>
