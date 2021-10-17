@@ -134,7 +134,7 @@ echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 ```
 
-Konfigurujemy powerlevel10k po restarcie terminala
+Restartujemy terminal i konfigurujemy powerlevel10k
 
 Możemy ponownie zkonfigurować powerlevel10k z terminala za pomocą polecenia
 
