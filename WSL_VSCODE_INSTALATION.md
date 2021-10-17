@@ -45,6 +45,9 @@ Po instalacji uaktalniamy ubuntu
 
 ```
 sudo apt update
+```
+
+```
 sudo apt dist-upgrade
 ```
 
@@ -88,9 +91,9 @@ musimy ustawić zsh default-owo
 chsh -s $(which zsh)
 ```
 
-Jeśli wyskoczy menu wybieramy 0
-
 Restartujemy terminal
+
+Jeśli wyskoczy menu wybieramy 0
 
 Sprawdzamy typ shell-a powinien być /usr/bin/zsh
 
@@ -101,8 +104,11 @@ echo $SHELL
 Instalacja powerlevel10k
 
 ```
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
+```
+
+```
+echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 ```
 
@@ -112,11 +118,16 @@ Konfigurujemy powerlevel10k z terminala za pomocą polecenia
 p10k configure
 ```
 
+<br><br>
+<br><br>
+<br><br>
 Instalujemy pluginy do autosugesti i podświetlania
 
 ```
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+```
 
+```
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 ```
 

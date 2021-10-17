@@ -35,6 +35,7 @@ Tab --> autocomplition
 unzip plik.zip --> rozpakowanie pliku
 cp --help --> wyświetla pomoc
 man komenda --> wyświetla manual dla komendy
+echo --> wyświetla np zmienne i może wpisywać do pliku
 ```
 
 ```
