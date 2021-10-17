@@ -17,12 +17,14 @@ vim nazwa_pliku
 cp nazwa_pliku_1 nazwa_pliku_2
 mv --> przenoszenie pliku lub zmiana nazwy pliku
 pwd --> print working directory
-less plik.txt --> możemy przeglądać plik page down i page up
+less plik.txt --> możemy przeglądać plik page down i page up, 'q'  wychodzimy
+less -N plik --> linie będą numerowane
 whoami
 cd --> change directory
 cd nazwa_folderu
 cd ..
-cd ~ - katalog user
+cd ~ --> katalog user
+cd --> katalog user
 cd / - root
 logout or exit
 clear - clear terminal
@@ -36,6 +38,10 @@ unzip plik.zip --> rozpakowanie pliku
 cp --help --> wyświetla pomoc
 man komenda --> wyświetla manual dla komendy
 echo --> wyświetla np zmienne i może wpisywać do pliku
+mkdir --> twoży katalog
+mkdir -p src/edu --> stwoży katalogi
+ls nazwa_katalogu --> wyświetli co jest w katalogu
+ls .. --> parent directory
 ```
 
 ```
