@@ -8,11 +8,15 @@ Windows key + R --> wpisujemy winver
 Windows 10 version 2004 Build 19041 or higher, or Windows 11
 ```
 
+<br>
+
 ## 2. Uruchomiamy Windows PowerShell
 
 ```
 windows key --> wpisujemy powershel --> RMB uruchom jako administrator
 ```
+
+<br>
 
 ## 3. Instalujemy wsl-a
 
@@ -41,7 +45,9 @@ Sprawdzamy czy mamy wersję wsl-a v2
 wsl --list --verbose
 ```
 
-Możemy resetować i odinstalować ubuntu
+<br>
+
+## - Możemy resetować i odinstalować ubuntu
 
 ```
 Ustawienia --> Aplikacje --> Ubuntu --> Opcje zaawansowane --> Resetuj
@@ -51,8 +57,7 @@ po resecie uruchamiamy ponownie instalację
 wsl --install -d Ubuntu-20.04
 ```
 
-<br>
-<br>
+<br><br><br><br>
 
 # WINDOWS TERMINAL INSTALL
 
@@ -68,7 +73,11 @@ sudo apt update
 sudo apt dist-upgrade
 ```
 
+<br>
+
 ## 2. Klikamy na ikonce chevron i wybieramy settings i default profile wybieramy Ubuntu
+
+<br>
 
 ## 3. Ustawiamy domyślny katalog przy uruchomieniu terminala
 
@@ -85,18 +94,19 @@ Kopiujemy ścieżkę do Settings --> Ubuntu-20.04 --> Starting directory
 \\wsl$\Ubuntu-20.04\home\marmax
 ```
 
+<br>
+
 ## 4. Ustawiamy czcionkę [Fura Mono Nerd](https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/FiraMono/Regular/complete/Fura%20Mono%20Regular%20Nerd%20Font%20Complete.otf?raw=true)
 
 ```
 Settings --> Ubuntu-20.04 -->  Appearance --> Font Face --> FuraMono Nerd Font
 ```
 
-<br>
-<br>
+<br><br><br><br>
 
 # ZSH & POWERLEVEL10K
 
-Instalacja zsh
+## 1. Instalacja zsh
 
 ```
 sudo apt install zsh
@@ -118,7 +128,9 @@ Sprawdzamy typ shell-a powinien być /usr/bin/zsh
 echo $SHELL
 ```
 
-Instalacja powerlevel10k
+<br>
+
+## 2. Instalacja powerlevel10k
 
 ```
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.plugins/powerlevel10k
@@ -136,9 +148,9 @@ Możemy ponownie zkonfigurować powerlevel10k z terminala za pomocą polecenia
 p10k configure
 ```
 
-<br><br>
-<br><br>
-Instalujemy pluginy do autosugesti i podświetlania (z lub bez sudo)
+<br>
+
+## 3. Instalujemy pluginy do autosugesti i podświetlania (z lub bez sudo)
 
 ```
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.plugins/zsh-autosuggestions
@@ -161,16 +173,8 @@ echo 'source ~/.plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >>~
 Resetujemy Terminal
 
 <br>
-<br>
-<br>
-<br>
-Oh My Zsh is install
 
-```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
-To get the same colors in zsh as bash, add these lines to .zshrc Execute gedit $HOME/.zshrc to open .zshrc (use your editor in place of gedit)
+## 4. Żeby otrzymać takie same kolory w zsh jak w bashu to dodajemy w .zshrc kod
 
 ```
 # enable color support of ls and also add handy aliases
@@ -190,75 +194,73 @@ To get the same colors in zsh as bash, add these lines to .zshrc Execute gedit $
     alias l='ls -CF'
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br>
 
 # VSCODE SETUP
 
-## 1. INSTALL REMOTE - WSL EXTENSIONS
+## 1. INSTALL VSCODE
 
-## 2. INSTALL COLOR THEME EXTENSION
+<br>
 
--  Monokai Pro - filter spectrum
--  Material Icon Theme
+## 2. SETTINGS - wklejamy w settings.json
 
-## 3. INSTALL PRETTIER EXTENSIONS
-
--  Editor: Default Formatter --> Prettier
--  Editor: Format On Save --> ON
-
-## SETTINGS
-
-Editor: Font Family --> Cascadia Code, Fira Code
-Editor: Font Size --> 18
-Editor: Line Height --> 28
-Editor: Word Wrap --> ON
-Editor: Detect Indentation --> OFF
-Editor: Tab Size --> 3
-Prettier: Tab Width --> 3
-Window: Zoom Level --> 0
-Editor: Font Ligatures --> editor.fontLigatures": true
-Editor: Smooth Scrolling --> ON
-
-## TERMINAL
-
-1. Terminal > Integrated: Font Family --> FuraMono Nerd Font
-2. Terminal > Integrated: Font Size --> 18
-
-3. Instalacja ZSH shell and PowerLevel10K - [LINK](https://medium.com/@shivam1/make-your-terminal-beautiful-and-fast-with-zsh-shell-and-powerlevel10k-6484461c6efb)
-
-4. zsh-autosuggestions - [LINK](https://github.com/zsh-users/zsh-autosuggestions)
-
-```
-plugins=(git
-zsh-autosuggestions
-zsh-syntax-highlighting
-)
-```
-
-5. Zmieniamy domyślną kolorystykę terminala z Monokai Pro w pliku settings.json
+<br>
 
 ```json
-"workbench.colorCustomizations": {
-      "terminal.ansiBlue": "#6350b6",
-      "terminal.ansiBrightBlue": "#5AD4E6",
+{
+   "editor.fontFamily": "Cascadia Code, Fira Code",
+   "editor.fontLigatures": true,
+   "editor.fontSize": 18,
+   "editor.formatOnSave": true,
+   "editor.defaultFormatter": "esbenp.prettier-vscode",
+   "editor.renderControlCharacters": false,
+   "editor.minimap.enabled": true,
+   "editor.wordWrap": "on",
+   "editor.detectIndentation": false,
+   "editor.tabSize": 3,
+   "editor.cursorBlinking": "phase",
+   "editor.lineHeight": 28,
+   "editor.fontWeight": "normal",
+   "editor.smoothScrolling": true,
+   "prettier.jsxSingleQuote": true,
+   "prettier.singleQuote": true,
+   "prettier.tabWidth": 3,
+   "terminal.integrated.fontSize": 18,
+   "terminal.integrated.fontFamily": "FuraMono Nerd Font",
+   "terminal.integrated.cursorBlinking": true,
+   "terminal.integrated.cursorStyle": "line",
+   "terminal.integrated.cursorWidth": 2,
+   "workbench.colorTheme": "Monokai Pro (Filter Spectrum)",
+   "workbench.iconTheme": "material-icon-theme",
+   "workbench.colorCustomizations": {
       "editor.selectionBackground": "#535353",
       "editor.selectionHighlightBackground": "#3d3d3d",
+      "terminal.ansiBlue": "#6350b6",
+      "terminal.ansiBrightBlue": "#5AD4E6",
 
       "[Monokai]": {
-         "editor.background": "#222",
-         "activityBar.background": "#181818"
+         "activityBar.background": "#181818",
+         "editor.background": "#222"
       }
-   },
+   }
+}
 ```
 
-## EXTENSIONS
+<br>
+
+## 3. INSTALL EXTENSIONS
+
+### 1. REMOTE - WSL EXTENSIONS
+
+### 2. MONOKAI PRO
+
+-  filter spectrum
+
+### 3. MATERIAL ICON THEME
+
+### 4. PRETTIER EXTENSIONS
+
+### 5. EXTENSIONS
 
 Install:
 
@@ -272,52 +274,7 @@ Polecane:
 -  Simple React Snippets
 -  React Native Tools
 
-# settings.json
-
-```json
-{
-   "workbench.iconTheme": "material-icon-theme",
-   "editor.fontFamily": "Cascadia Code, Fira Code",
-   "editor.fontLigatures": true,
-   "editor.fontSize": 18,
-   "workbench.colorTheme": "Monokai Pro (Filter Spectrum)",
-   "terminal.integrated.fontFamily": "FuraMono Nerd Font",
-   "terminal.integrated.fontSize": 18,
-   "editor.formatOnSave": true,
-   "[html]": {
-      "editor.defaultFormatter": "vscode.html-language-features"
-   },
-   "editor.defaultFormatter": "esbenp.prettier-vscode",
-   "editor.renderControlCharacters": false,
-   "editor.minimap.enabled": true,
-   "terminal.integrated.cursorBlinking": true,
-   "terminal.integrated.cursorStyle": "line",
-   "terminal.integrated.cursorWidth": 2,
-   "prettier.jsxSingleQuote": true,
-   "prettier.singleQuote": true,
-   "editor.cursorBlinking": "phase",
-   "react-native.packager.port": 19000,
-   "editor.lineHeight": 28,
-   "editor.fontWeight": "normal",
-
-   "workbench.colorCustomizations": {
-      "terminal.ansiBlue": "#6350b6",
-      "terminal.ansiBrightBlue": "#5AD4E6",
-      "editor.selectionBackground": "#535353",
-      "editor.selectionHighlightBackground": "#3d3d3d",
-
-      "[Monokai]": {
-         "editor.background": "#222",
-         "activityBar.background": "#181818"
-      }
-   },
-   "liveServer.settings.donotShowInfoMsg": true,
-   "editor.wordWrap": "on",
-   "editor.detectIndentation": false,
-   "editor.tabSize": 3,
-   "prettier.tabWidth": 3
-}
-```
+<br><br><br><br>
 
 # LINKS
 

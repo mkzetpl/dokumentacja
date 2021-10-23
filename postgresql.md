@@ -86,6 +86,24 @@ Informacje z jakiego konta jesteśy zalogowani do postgres
 \conninfo
 ```
 
+Ustawiamy hasło do bazy
+
+```
+\password
+```
+
+Help - wyświetla komendy
+
+```
+\?
+```
+
+Połączenie do nowej bazy
+
+```
+\c nazwa_bazy
+```
+
 Wyjście z interfejsu postgres
 
 ```
