@@ -1,5 +1,0 @@
-#Podstawy JS
-
-```
-test
-```
