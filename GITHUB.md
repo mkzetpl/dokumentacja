@@ -15,7 +15,7 @@ apt install git
 Kopiujemy klucz publiczny
 
 ```
-pbcopy < ~/.ssh/id_rsa.pub
+cat ~/.ssh/id_rsa.pub
 ```
 
 Wklejamy klucz w panelu github-a
@@ -32,16 +32,16 @@ Settings -> SSH -> New SSH key
 
 ## 4. Tworzymy nowe repozytorium
 
-- Możemy utwożyć przy tworzeniu projektu plik README.md
+-  Możemy utwożyć przy tworzeniu projektu plik README.md
 
 <br>
 
 ## 5. Klonujemy repozytorium z githuba na dysk
 
 ```
-git clone git@github.com:mkzetpl/dokumentacja.git
+git clone git@github.com:nazwa-konta/dokumentacja.git
 or
-git clone https://github.com/mkzet/dokumentacja.git
+git clone https://github.com/nazwa-konta/dokumentacja.git
 ```
 
 <br>
@@ -159,8 +159,8 @@ git merge main
 
 ## 1. Fork
 
-- klikamy fork w projekcie na githubie
-- kopiuje cały projekt i wgrywa go do naszego konta na githubie
+-  klikamy fork w projekcie na githubie
+-  kopiuje cały projekt i wgrywa go do naszego konta na githubie
 
 ## 2. Klonujemy repozytorium
 
@@ -196,3 +196,7 @@ git remote -v
 git pull upstream master
 
 ```
+
+git reset --hard
+
+.gitignore

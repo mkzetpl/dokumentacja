@@ -120,3 +120,44 @@ groupmode + 2xTab
 
 sudo userdel nazwa
 sudo userdel -r nazwa --> usunie równięż katalog w home
+
+~. -->Get out of hung terminal - ssh
+
+---
+
+scp source_file_path destination_file_path
+scp -r test backup
+
+Kopiuje pliki z katalogu do katalogu
+
+```
+rsync -r test/ backup/
+```
+
+Kopiuje katalog do katalogu
+
+```
+rsync -r test backup/
+```
+
+Przeprowadza symulację kopiowania, wyświetli pliki nie z kopiowane
+
+```
+rsync -av --dry-run test/ backup/
+```
+
+Kopiowanie na serwer
+
+```
+rsync -zaP ~/projects/my_sites root@192.32.54.100:~/public/
+```
+
+-  z - to compress
+-  a - to archive
+-  P - to show the progress
+
+Lub za pomocą
+
+```
+scp -r app root@192.32.54.100:~/public/
+```

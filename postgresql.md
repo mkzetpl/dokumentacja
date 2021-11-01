@@ -66,12 +66,24 @@ Usunięcie użytkownika (role)
 drop role mkzetpl;
 ```
 
+Help do psql
+
+```
+psql --help
+```
+
 ## Komendy PostgresSQL
 
-Wyświetlenie użytkowników
+Wyświetlenie role (użytkowników)
 
 ```
 \du
+```
+
+Wyświetlenie wszystkich tabeli
+
+```
+\dt
 ```
 
 Wyświetlenie istniejących baz danych
@@ -84,6 +96,18 @@ Informacje z jakiego konta jesteśy zalogowani do postgres
 
 ```
 \conninfo
+```
+
+Tworzenie role (użytkownika)
+
+```
+CREATE ROLE me WITH LOGIN PASSWORD 'password';
+```
+
+Dodanie uprawnień tworzenia bazy do role (użytkownika)
+
+```
+ALTER ROLE me CREATEDB;
 ```
 
 Ustawiamy hasło do bazy

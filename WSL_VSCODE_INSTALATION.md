@@ -273,6 +273,8 @@ Polecane:
 -  Quokka.js
 -  Simple React Snippets
 -  React Native Tools
+-  Git Lens
+-  Remote repositores
 
 <br><br><br><br>
 
