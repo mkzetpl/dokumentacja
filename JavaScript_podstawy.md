@@ -1,1 +1,2 @@
-#Podstawyy JS
+#Podstawy JS
+krzysiek
