@@ -1,2 +1,5 @@
 #Podstawy JS
-krzysiek
+
+```
+Tu jest wpis Krzysztofa
+```
