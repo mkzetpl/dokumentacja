@@ -1,1 +1,1 @@
-#Podstawyy JS
+#Podstawy JS
