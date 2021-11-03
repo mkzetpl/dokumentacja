@@ -10,6 +10,14 @@ prompt('treść komunikatu', 'domyślna wartość'); // ANULUJ - false, OK - wpi
 
 ## 2. Zmienne
 
+### a. Typy zmiennych
+
+```js
+// TODO
+```
+
+### b. Deklaracja zmiennych
+
 ```js
 var a = 20; // nie zalecane w użyciu, zasięg funkcyjny
 let b = 20; // zasięg blokowy
