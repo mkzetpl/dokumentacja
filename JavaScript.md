@@ -37,6 +37,11 @@ const duzyString = BigInt('9007199254740991'); // przez wywołanie funkcji BigIn
 // Typy złożone
 Object (w tym Array, Map i Set)
 
+```
+
+Array
+
+```js
 //Array:
 let owoce = ['Jabłko', 'Banan']; // lub jak poniżej
 let owoce = new Array('Jabłko','Banan');
@@ -138,11 +143,6 @@ let b = tab.includes("Henryk"); // false
 
 // Array.from()
 // TODO
-
-
-
-
-
 
 
 ```
