@@ -39,10 +39,311 @@ Object (w tym Array, Map i Set)
 
 ```
 
-# Stringi
+# Operatory
+
+### Operatory dodawania, odejmowania, mnożenia, dzielenia
+
+```js
+const x = 5;
+console.log(x + 2); //7
+console.log(x - 1); //4
+console.log(x * 3); //15
+console.log(x / 2); //2.5
+
+//% - modulo czyli reszta z dzielenia
+console.log(x % 2); //1
+console.log(9 % 3); //0
+
+//** - potęgowanie
+console.log(x ** 2); //25 - równoznaczne z Math.pow(x, 2)
+console.log(3 ** 3); //27 - równoznaczne z Math.pow(3, 3)
+```
+
+### Operatory przypisania
+
+```js
+let x = 5;
+x += 3; // równoznaczne z x = x + 3;
+x -= 3; // równoznaczne z x = x - 3;
+x *= 3; // równoznaczne z x = x * 3;
+x /= 3; // równoznaczne z x = x / 3;
+x %= 3; // równoznaczne z x = x % 3;
+x++; // równoznaczne z x = x + 1; zwiększenie w następnej instrukcji
+x--; // równoznaczne z x = x - 1; zmniejszenie w nast epnej instrukcji
+++x; // zwiększona w danej instrukcji
+--x; // zmniejszona w danej instrukcji
+
+// ------ Przykład  inkrementacji i dekrementacji ------
+let x = 5;
+console.log(x++); //5
+console.log(x); //6
+
+let y = 5;
+if (y-- < 5) {
+   //nie zadziała
+   console.log(y); //4
+}
+
+let x = 5;
+console.log(++x); //6
+console.log(x); //6
+
+let y = 5;
+if (--y < 5) {
+   //zadziała
+   console.log(y); //4
+}
+```
+
+### Operatory porównania
 
 ```js
 // TODO
+```
+
+### Operatory logiczne
+
+```js
+// TODO
+```
+
+### Operatory logiczne w równaniach
+
+```js
+// TODO
+```
+
+# Instrukcje warunkowe
+
+```js
+// TODO
+```
+
+# Pętle for i while
+
+```js
+// TODO
+```
+
+# Number i Math
+
+```js
+// TODO
+```
+
+# Stringi
+
+```js
+const text = 'Ala ma kota, a kot ma Ale.'; //""podwójne cudzysłowy zwykłe "
+const text = 'Ala ma kota'; //pojedyncze apostrofy
+const img = '<div class="element" data-text="test">';
+const txt = "It's a big year";
+const text = `Ala ma kota`; // backtiki też są prawidłowe
+```
+
+### Teksty na wiele linii
+
+```js
+//poprzez operator przypisania
+let text = 'Stoi na stacji lokomotywa,';
+text += 'Ciężka, ogromna i pot z niej spływa:';
+text += 'Tłusta oliwa.';
+
+//poprzez dodawanie części tekstu
+let text =
+   'Stoi na stacji lokomotywa,' +
+   'Ciężka, ogromna i pot z niej spływa:' +
+   'Tłusta oliwa.';
+
+//Poprzez zastosowanie znaku backslash na końcu linii
+let text =
+   'Stoi na stacji lokomotywa,\
+Ciężka, ogromna i pot z niej spływa:\
+Tłusta oliwa.\
+';
+
+//Najlepsza metoda - użycie template strings
+let text = `Stoi na stacji lokomotywa,
+Ciężka, ogromna i pot z niej spływa:
+Tłusta oliwa.`;
+```
+
+### Wstawianie zmiennych do tekstu
+
+```js
+const age = 10;
+const text = 'Ten pies ma ' + age + ' lat'; // "" tu wszystkie są zwykłe "
+const text = 'Ten kot ma ' + age + ' lat';
+const text = `Ten chomik ma ${age} lat`; // nie wszystkie przeglądarki obsługują
+```
+
+### Pobieranie długości tekstu
+
+```js
+const text = 'Ala';
+text.length; //3
+'Koty i psy są fajne'.length; //19
+```
+
+### Pobieranie znaku na danej pozycji
+
+```js
+const text = 'Ala ma kota, a kot ma Ale';
+
+console.log(text.charAt(0)); //A
+console.log(text.charAt(4)); //m
+
+console.log(text[0]); //A
+console.log(text[4]); //m
+```
+
+### toUpperCase() i toLowerCase() - zamiana wielkości liter
+
+```js
+const text = 'Ala ma kota';
+
+console.log(text.toUpperCase()); //"ALA MA KOTA"
+console.log(text.toLowerCase()); //"ala ma kota"
+```
+
+### indexOf() i lastIndexOf() - zwracanie pozycji szukanego tekstu
+
+```js
+// powyższe metody dostępne są dla stringów i tablic
+const text = 'Ala ma kota';
+console.log(text.indexOf('m')); // 4 - zwraca pozycję pierwszego napotkanego m
+
+const text = 'Ala ma kota';
+console.log(text.indexOf('f')); // -1 bo nie ma w stringu f
+
+const text = 'Ala ma kota';
+console.log(text.indexOf('kota')); // 7
+
+const text = 'Ala ma kota';
+console.log(text.lastIndexOf('a')); // 10 - zwraca ostatnią pozycję na której jest a
+```
+
+### startsWith() i endsWith() - czy zaczyna się i kończy
+
+```js
+// zwraca true lub false jeśli string
+// zaczyna się lub kończy na podaną wartość
+const text = 'Ala ma kota';
+
+text.startsWith('Ala'); //true
+text.startsWith('Ola'); //false
+
+text.endsWith('kota'); //true
+text.endsWith('psa'); //false
+```
+
+### substr() - zwracanie kawałka tekstu
+
+```js
+// zwraca kawałek tekstu substr(start, dlugosc)
+const text = 'Ala ma kota';
+
+console.log(text.substr(2)); // "a ma kota"
+console.log(text.substr(0, 3)); // "Ala"
+console.log(text.substr(7, 4)); // "kota"
+console.log(text.substr(4)); // "ma kota"
+```
+
+### substring() - zwracanie kawałka tekstu
+
+```js
+// zwraca akawałek tekstu substring(start, stop)
+// działa podobnie jak powyższa ale drugi
+// parmetr wskazuje miejsce końca pobierania
+const text = 'Ala ma kota';
+
+console.log(text.substring(0, 3)); //"Ala"
+console.log(text.substring(3)); //"ma kota"
+console.log('Ala ma kota'.substring(6, 4)); //"ma" 6 i 4 zostają automatycznie zamienione miejscami
+```
+
+### `slice`() - zwracanie kawałka tekstu
+
+```js
+// metoda dostępna dla stringow i tablic
+// działa identycznie jak substring() ale nie zamienia
+// argumentów miejscami jeśli drugi jest mniejszy
+const txt = 'Ala ma kota';
+
+const txt2 = txt.slice(0, 3);
+console.log(txt2); // "Ala"
+
+const txt3 = txt.slice(1, 5);
+console.log(txt3); // "la m"
+
+const txt4 = txt.slice(4, 6);
+console.log(txt4); // "ma"
+
+const txt5 = txt.slice(4);
+console.log(txt5); // "ma kota"
+
+const txt6 = txt.slice(-4);
+console.log(txt6); // "kota"
+```
+
+### split() - dzielenie tekstu
+
+```js
+// split(znak, dlugosc) zwraca tablicę
+// z podzielonych fragmentów tekstu
+// znak = znak podziału stringa, dlugosc = ilosc elemntow tablicy
+const text = 'Ala ma kota, a kot ma Alę, Ala go kocha';
+const parts = text.split(', ');
+console.log(parts); // (3) ["Ala ma kota","a kot ma Alę","Ala go kocha"]
+
+const text = 'Ala ma kota, a kot ma Alę, Ala go kocha';
+const parts = text.split(', ', 1);
+console.log(parts); // (1) ["Ala ma kota"]
+```
+
+### replace() - wyszukiwanie tekstu i jego zamiana
+
+```js
+// metoda replace(ciag_szukany, zamieniony)
+// zwraca nowy tekst, w którym został zamieniony
+// szukany ciąg znaków na nowy tekst.
+const text = 'Ala ma kota';
+const textNew = text.replace('kota', 'psa');
+console.log(textNew); //"Ala ma psa"
+
+// wyszukuje i zamienia tylko pierwsze wystąpienie
+const text = 'Ola lubi koty, Ola lubi psy';
+const textNew = text.replace('Ola', 'Ela');
+console.log(textNew); //"Ela lubi koty, Ola lubi psy"
+
+// Aby zostały zamienione wszystkie wystąpienia
+//szukanego ciągu, musimy zastosować
+// wyrażenie regularne.
+const text = 'Ola lubi koty, Ola lubi psy';
+const textNew = text.replace(/Ola/g, 'Ela'); //g jak globalnie w całym tekście
+console.log(textNew); //"Ela lubi koty, Ela lubi psy"
+```
+
+### repeat() - powtarzanie tekstu
+
+```js
+const text = 'kot';
+console.log(text.repeat(3)); //kotkotkot
+'u'.repeat(10); // uuuuuuuuuu
+```
+
+### Pętla po tekście
+
+```js
+const txt = 'abecadło';
+
+for (let i = 0; i < txt.length; i++) {
+   console.log(txt[i]);
+}
+
+for (const el of txt) {
+   console.log(el);
+}
 ```
 
 # Array
@@ -78,7 +379,7 @@ console.log(typeof tab); //"object";
 console.log(typeof ob); //"object";
 ```
 
-## join() - scalanie tablicy w tekst
+### join() - scalanie tablicy w tekst
 
 ```js
 onst ourTable = ["Marcin", "Ania", "Agnieszka"];
@@ -87,7 +388,7 @@ console.log(ourTable.join(" - ")); //wypisze się "Marcin - Ania - Agnieszka"
 console.log(ourTable.join(" <--> ")); //wypisze się "Marcin <--> Ania <--> Agnieszka"
 ```
 
-## Zamiana tekstu na tablicę
+### Zamiana tekstu na tablicę
 
 ```js
 const txt = 'kartofel';
@@ -99,7 +400,7 @@ const tab = txt.split(' ');
 console.log(tab); //["Ala", "ma", "kota"];
 ```
 
-## reverse() - odwracanie kolejności elementów tablicy
+### reverse() - odwracanie kolejności elementów tablicy
 
 ```js
 const tab = [1, 2, 3, 4];
@@ -113,7 +414,7 @@ const tab = [...word];
 console.log(tab.reverse().join('') === tab.join('')); //true czyli palindrom
 ```
 
-## indexOf(), lastIndexOf() i includes() wyszukiwanie elementu w tablicy
+### indexOf(), lastIndexOf() i includes() wyszukiwanie elementu w tablicy
 
 ```js
 // indexOf() Zwraca index szukanego tekstu lub -1 jeśli nie znajdzie
@@ -133,7 +434,7 @@ let a = tab.includes('Ania'); // true
 let b = tab.includes('Henryk'); // false
 ```
 
-## splice() - usuwanie lub dodawanie elementów
+### splice() - usuwanie lub dodawanie elementów
 
 ```js
 // służy zarówno do usuwania jak i wstawiania
@@ -147,7 +448,7 @@ tab.splice(1, 0, 'A', 'B'); //nic nie usuwam i wstawiam nowe elementy przed inde
 console.log(tab); //["Marcin", "A", "B", "Ania", "Agnieszka", "Monika"]
 ```
 
-## fill() - wypełnianie tablicy
+### fill() - wypełnianie tablicy
 
 ```js
 const tab = new Array(20);
@@ -166,7 +467,7 @@ tab3.fill('pies', 2);
 console.log(tab3); //[1, 2, "pies", "pies", "pies"]
 ```
 
-## concat() - łączenie tablic
+### concat() - łączenie tablic
 
 ```js
 // nie możemy używać zwykłego dodawania bo
@@ -184,7 +485,7 @@ const tableBig = anim1.concat(anim2, anim3);
 console.log(tableBig); //wypisze ["Pies", "Kot", "Słoń", "Wieloryb", "Chomik", "Świnka"];
 ```
 
-## slice() - zwracanie kawałka tablicy
+### slice() - zwracanie kawałka tablicy
 
 ```js
 const tab = ['Marcin', 'Ania', 'Agnieszka', 'Monika', 'Magda'];
@@ -203,7 +504,7 @@ const tab6 = tab.slice(2, -1);
 console.log(tab6); //["Agnieszka", "Monika"]
 ```
 
-## Pętle po tablicy
+### Pętle po tablicy
 
 ```js
 const tab = ['Marcin', 'Ania', 'Agnieszka'];
@@ -219,7 +520,7 @@ for (const el of tab) {
 }
 ```
 
-## Tablice wielowymiarowe
+### Tablice wielowymiarowe
 
 ```js
 const tab = [
@@ -229,7 +530,7 @@ const tab = [
 ];
 ```
 
-## flat() - spłaszczanie tablicy wielowymiarowej
+### flat() - spłaszczanie tablicy wielowymiarowej
 
 ```js
 const tab = [
@@ -247,7 +548,7 @@ const tab = [
 console.log(tab.flat(2));
 ```
 
-## Array.from()
+### Array.from()
 
 ```js
 // Array.from(ob, map*, this*)
@@ -279,7 +580,7 @@ const tab = Array.from(ob, function (el) {
 console.log(tab); //["ALA", "BELA"]
 ```
 
-## sort() - sortowanie tablicy
+### sort() - sortowanie tablicy
 
 ```js
 const tab = ['Marcin', 'Ania', 'Piotrek', 'Grześ'];
@@ -301,7 +602,7 @@ function mySort(a, b) {
 }
 tab.sort(mySort);
 
-// Tak więc ogólna postać funkcji sortującej wygląda tak: (BubleSort)
+// Ogólna postać funkcji sortującej wygląda tak: (BubleSort)
 const tab = ['Marcin', 'Ania', 'Agnieszka'];
 function compare(a, b) {
    if (a < b) {
@@ -384,81 +685,19 @@ users.sort((a, b) => {
 console.log(users);
 ```
 
+# Funkcje
+
+```js
+// TODO
+```
+
+# Funkcja strzałkowa
+
+```js
+// TODO
+```
+
 # Spread i rest
-
-```js
-// TODO
-```
-
-## 3. Operatory
-
-### a. Operatory dodawania, odejmowania, mnożenia, dzielenia
-
-```js
-const x = 5;
-console.log(x + 2); //7
-console.log(x - 1); //4
-console.log(x * 3); //15
-console.log(x / 2); //2.5
-
-//% - modulo czyli reszta z dzielenia
-console.log(x % 2); //1
-console.log(9 % 3); //0
-
-//** - potęgowanie
-console.log(x ** 2); //25 - równoznaczne z Math.pow(x, 2)
-console.log(3 ** 3); //27 - równoznaczne z Math.pow(3, 3)
-```
-
-### b. Operatory przypisania
-
-```js
-let x = 5;
-x += 3; // równoznaczne z x = x + 3;
-x -= 3; // równoznaczne z x = x - 3;
-x *= 3; // równoznaczne z x = x * 3;
-x /= 3; // równoznaczne z x = x / 3;
-x %= 3; // równoznaczne z x = x % 3;
-x++; // równoznaczne z x = x + 1; zwiększenie w następnej instrukcji
-x--; // równoznaczne z x = x - 1; zmniejszenie w nast epnej instrukcji
-++x; // zwiększona w danej instrukcji
---x; // zmniejszona w danej instrukcji
-
-// ------ Przykład  inkrementacji i dekrementacji ------
-let x = 5;
-console.log(x++); //5
-console.log(x); //6
-
-let y = 5;
-if (y-- < 5) {
-   //nie zadziała
-   console.log(y); //4
-}
-
-let x = 5;
-console.log(++x); //6
-console.log(x); //6
-
-let y = 5;
-if (--y < 5) {
-   //zadziała
-   console.log(y); //4
-}
-```
-
-### c. Operatory porównania
-
-```js
-// TODO
-```
-
-### d. Operatory logiczne
-
-```js
-// TODO
-```
-
-### e. Operatory logiczne w równaniach
 
 ```js
 // TODO
