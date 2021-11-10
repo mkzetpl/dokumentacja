@@ -452,8 +452,220 @@ console.log(a.nr); //100
 
 # Instrukcje warunkowe
 
+### Wynik sprawdzenia
+
 ```js
-// TODO
+const a = 10;
+const b = 20;
+
+console.log(b > a); //true
+console.log(b < a); //false
+console.log(b === a); //false
+
+const result = a > b;
+console.log(result); //false
+
+const a = 10;
+const b = 20;
+
+if (a < b) {
+   //kod się wykona
+   console.log('A jest mniejsze od B');
+}
+
+// W Javascript możemy sprawdzać ze sobą dowolne typy danych.
+// ale lepiej konwertować dane do podobnych typów
+// przykład poniżej na końcu bloku
+const nr = prompt('Podaj jakąś liczbę');
+if (nr > 5) {
+   console.log(`Liczba ${nr} jest większa od 5`);
+}
+// powyższe wygląda następująco bo nr to string
+if ('7' > 5) {
+   console.log(`Liczba 7 jest większa od 5`);
+}
+
+// teksty porównywane są litera po literze
+console.log('ab' > 'aa'); //true
+console.log('pies' > 'kot'); //true
+console.log('abc' > 'acc'); //false
+console.log('alicja' > 'bela'); //false
+console.log('Marcin' > 'Ania'); //true
+
+//  brane są pod uwagę pozycje liter
+// na tablicy znaków Unicode
+console.log('a' > 'A'); //true
+console.log('Kot' > 'kot'); //false
+console.log('alicja' > 'Beata'); //true
+
+// inne typy konwertowane są do liczb,
+// a następnie porównywane są te liczby
+console.log('3' > 2); //true bo 3 > 2
+console.log('02' > 3); //false bo 2 > 3
+console.log('0' == 0); //true
+
+console.log(true > 2); //false bo true to 1
+console.log(false < 2); //true bo false to 0
+
+console.log('Ala' > 0); //false bo konwersja "Ala" na liczbę to NaN (NonANumber), a NaN jest mniejsze od każdej liczby
+console.log('Kot' > -Infinity); //false - to samo co powyżej. NaN jest mniejsze od każdej liczby
+
+// najlepiej starać się konwertować dane
+// do podobnego typu a nie porównywać jak wyżej
+// zamiast
+const nr = prompt("Podaj liczbę z zakresu 1-10");
+if (nr > 5) { ... }
+
+// lepiej napisać
+const nr = Number(prompt("Podaj liczbę z zakresu 1-10"));
+if (nr > 5) { ... }
+```
+
+### Wartości falsy
+
+```js
+// Tworząc warunki, nie musimy porównywać ze sobą dwóch wartości
+if (false) { ... }
+if (null) { ... }
+if (undefined) { ... }
+if (0) { ... }
+if (NaN) { ... }
+if ("") { ... }
+if (document.all) { ... }
+
+const a = 20;
+const b = 0;
+const c = null;
+
+if (a) { //to się wykona bo a !== 0
+    console.log("A ma wartość ", a);
+}
+if (b) { //to się nie wykona bo b === 0
+    console.log("A ma wartość ", b);
+}
+if (c) { //to się nie wykona bo null
+    console.log("A ma wartość ", c);
+}
+if (false) { //to się nie wykona bo false to false
+}
+
+// często spotyka się  poniższe
+
+if (nr) { //kod się wykona jeżeli wartość liczby nr jest różna od falsy
+}
+
+const txt = "Ala ma kota";
+if (txt.length) { //sprawdzam długość tekstu. Jeżeli większa od 0 to true
+    ...
+}
+
+const tab = []
+if (tab.length) { //podobnie sprawdzam długość tablicy
+    ...
+}
+```
+
+### Instrukcja if
+
+```js
+// if, wykonuje kod tylko gdy w nawiasach będzie prawda
+const nr = Math.random() * 10;
+
+if (nr > 5) {
+   console.log('Liczba nr jest większa od 5');
+}
+
+// dla każdej instrukcji if możemy zastosować
+// zapisy else i else if
+const nr = Math.random() * 10;
+
+if (nr >= 5) {
+   console.log('Liczba nr jest większa lub równa 5');
+} else {
+   console.log('Liczba nr jest mniejsza od 5');
+}
+
+// lub
+const nr = Math.random() * 10;
+
+if (nr < 3) {
+   console.log('Liczba jest mniejsza od 3');
+} else if (nr <= 6) {
+   console.log('Liczba jest mniejsza lub równa 6');
+} else {
+   console.log('Liczba jest większa od 6');
+}
+```
+
+### Operator warunkowy
+
+```js
+// skrócona wersja warunku if + tzw ternary operator
+const x = wyrażenie ? jeżeli_true : jeżeli_false;
+
+// przykład
+const i = 1;
+
+let number = '';
+if (i > 0) {
+   number = 'dodatnia';
+} else {
+   number = 'ujemna';
+}
+
+//to samo tylko w skróconej wersji
+const number = i > 0 ? 'dodatnia' : 'ujemna';
+
+// przykłady zastosowania
+
+const x = 23;
+const isEven = x % 2 === 0 ? 'parzysta' : 'nieparzysta';
+console.log(isEven); //"nieparzysta"
+
+const age = 21;
+const status = age < 18 ? 'jesteś za młody' : 'zapraszamy na seans';
+console.log(status); //"zapraszamy na seans"
+
+const name = 'Ola';
+console.log(name === 'Ola' ? 'Masz na imię Ola' : 'Nie masz na imię Ola'); //"Masz na imię Ola"
+
+const nr = 10;
+const answer = nr ? 'yes' : 'no';
+console.log(answer);
+
+const isMember = true;
+console.log(`Koszt usługi to ${isMember ? '2.00' : '10.00'}zł`);
+```
+
+### switch
+
+```js
+// instrukcja switch służy do  przyrównywania zmiennej do wartości
+const number = prompt('Wpisz jakiego masz zwierzaka');
+
+switch (number) {
+   case 'pies':
+      console.log('Psy są najlepsze');
+      break;
+   case 'kot':
+      console.log('Koty są lepsze od psów');
+      break;
+   case 'chomik':
+      console.log('Każdy chomik jest super');
+      break;
+   default:
+      console.log('Jakiś dziwny ten zwierzak');
+}
+
+// lub
+const car = "bmw";
+
+switch (car) {
+    case "bmw" : ... break;
+    case "fiat" : ... break;
+    case "audi" : ... break;
+}
+
 ```
 
 # Pętle for i while
