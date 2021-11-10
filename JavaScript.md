@@ -37,6 +37,180 @@ const duzyString = BigInt('9007199254740991'); // przez wywołanie funkcji BigIn
 // Typy złożone
 Object (w tym Array, Map i Set)
 
+// nie mają przypisanej bezpośrednio wartości,
+// tylko wskazują na miejsce w pamięci,
+// gdzie te dane są przetrzymywane.
+const a = [1, 2, 3];
+const b = a;
+a.push(4);
+console.log(a); //[1, 2, 3, 4]
+console.log(b); //[1, 2, 3, 4]
+
+const a = { name : "kot" }
+const b = a;
+const c = b;
+const d = c;
+d.name = "pies";
+console.log(a, b, c, d); { name : "pies" } { name : "pies" } { name : "pies" } { name : "pies" }
+
+// typy proste są niemutowalne
+// typy złożone przeciwnie
+const tab = [1, 2, 3, 4]; //tablica - obiekt złożony
+tab[0] = "kot";
+console.log(tab); //["kot", 2, 3, 4]; //zmieniłem pierwszy klucz
+
+//typ prosty
+const txt = "Ala ma kota";
+txt[0] = "O"; //spróbuję zmienić pierwszą literę
+console.log(txt); //Ala ma kota
+
+// przy pracy z typami prostymi działamy
+// na tym co zwróci dana funkcja,
+// a nie modyfikujemy bezpośrednio danej wartości:
+
+const txt = "ala";
+const big = txt.toUpperCase(); //funkcja toUpperCase() zwróciła tekst pisany dużymi literami
+
+console.log(big); //"ALA"
+console.log(txt); //"ala"
+```
+
+### Sprawdzanie typu danych
+
+```js
+const nr = 10;
+const txt = 'przykładowy tekst';
+const arr = [1, 2, 3];
+const ob = {};
+const n = null;
+//zmiennej zzz specjalnie nie zadeklarowana
+
+console.log(typeof nr); //"number"
+console.log(typeof txt); //"string"
+console.log(typeof arr); //"object" hmm?
+console.log(typeof ob); //"object"
+console.log(typeof n); //"object" hmm?
+console.log(typeof zzz); //"undefined"
+
+// sprawdzenie typu zmiennych
+if (typeof nr === "number") {...}
+if (typeof txt === "string") {...}
+if (Array.isArray(arr)) {...}
+if (typeof ob === "object") {...}
+if (n === null) {...}
+if (typeof zzz === "undefined") {...}
+```
+
+### Operacje na różnych typach
+
+```js
+'1' + 2; //"12"
+2 + '1'; //"21"
+
+2 + 3 + '4'; //"54" ponieważ 2+3=5 czyli 5 + "4"
+2 + 2 + 3 + '3'; //"73"
+2 + 2 + '3' + 3; //"433"
+
+'2' * 3; //6
+3 * '3'; //9
+'5' - 1; //4
+8 / '2'; //4
+
+//  ------------------------ ZOSTAWIĆ CZY WYRZUCIĆ ???? ----------------------
+[1, 2, 3] + "kot" //1,2,3kot, bo tablica została skonwertowana na 1,2,3
+23 + "" + false  //"23false"
+
+[] + "kot"  //"kot", bo tablica została skonwertowana na ""
+[]  + []  //"", bo obie tablice zostały skonwertowane na "" czyli mamy "" + ""
+[] + false  //"false"
+
+"" + {}  //"[object Object]" bo obiekt został skonwertowany na zapis [object Object]
+[1, 2, 3] + {}  //"1,2,3[object Object]"
+{} + {}  //"[object Object][object Object]"
+"23" + [1, 2, 3] + {} + !true  //"231,2,3[object Object]false"
+
+null + null //0
+null + true //1
+null + true + "10" //"110"
+//  ------------------------ ZOSTAWIĆ CZY WYRZUCIĆ ???? ----------------------
+```
+
+### Ręczna konwersja danych
+
+```js
+// konwersja danych na string
+const nr = 102;
+
+console.log('' + nr); // "102"
+console.log(nr.toString()); // "102"
+console.log(String(nr)); // "102"
+
+String(102); //"102"
+String(true); //"true"
+String(null); //"null"
+String(undefined); //"undefined"
+
+// konwersja na liczbę
+// Number() i parseInt()
+console.log(Number('100')); // 100
+console.log(Number('50.5')); // 50.5
+console.log(Number('50px')); // NaN
+
+console.log(parseInt('24px', 10)); // 24
+console.log(parseInt('26.5', 10)); // 26
+console.log(parseInt('100kot', 10)); // 100
+console.log(parseInt('Ala102', 10)); // NaN - zaczyna się od liter
+console.log(parseInt('Hello', 10)); // NaN
+console.log(parseInt('1000', 2)); // 8
+
+// toFixed(digits)
+// zwraca tekst będący liczbą zapisaną z daną precyzją.
+// Parametr digits określa liczbę cyfr po przecinku
+const nr = 123.456789;
+
+nr.toFixed(); // "123"
+nr.toFixed(0); // "123"
+nr.toFixed(1); // "123.5"
+nr.toFixed(2); // "123.46"
+nr.toFixed(3); // "123.457"
+nr.toFixed(4); // "123.4568"
+nr.toFixed(5); // "123.45679"
+nr.toFixed(6); // "123.456789"
+nr.toFixed(7); // "123.4567890"
+nr.toFixed(8); // "123.45678900"
+nr.toFixed(9); // "123.456789000"
+nr.toFixed(10); // "123.4567890000"
+nr.toFixed(11); // "123.45678900000"
+
+// toPrecision(digits)
+// parametr digits, który określa liczbę cyfr
+// w całym zapisie musi być z przedziału 1-100
+
+nr.toPrecision(); // "123.456789"
+nr.toPrecision(0); // błąd, parametr musi być z przedziału 1-100
+nr.toPrecision(1); // "1e+2"
+nr.toPrecision(2); // "1.2e+2"
+nr.toPrecision(3); // "123"
+nr.toPrecision(4); // "123.5"
+nr.toPrecision(5); // "123.46"
+nr.toPrecision(6); // "123.457"
+nr.toPrecision(7); // "123.4568"
+nr.toPrecision(8); // "123.45679"
+nr.toPrecision(9); // "123.456789"
+nr.toPrecision(10); // "123.4567890"
+nr.toPrecision(11); // "123.45678900"
+
+// Boolean()
+Boolean(102); //true
+Boolean('kot'); //true
+
+Boolean(false); //false
+Boolean(null); //false
+Boolean(undefined); //false
+Boolean(0); //false
+Boolean(NaN); //false
+Boolean(''); //false
+Boolean(document.all); //false
 ```
 
 # Operatory
