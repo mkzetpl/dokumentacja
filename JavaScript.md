@@ -272,19 +272,182 @@ if (--y < 5) {
 ### Operatory porównania
 
 ```js
-// TODO
+//== - porównuje obie wartości
+let a = 10;
+let b = 20;
+console.log(a == b); //false;
+console.log(a == 10); //true
+
+//=== - porównuje obie wartości i ich typ
+let a = 10;
+let b = '10';
+console.log(a === 20); //false
+console.log(a == b); //true
+console.log(a === b); //false
+
+//!= - czy wartości są różne
+let a = 10;
+let b = 20;
+console.log(a != b); //true
+console.log(a != '10'); //false
+
+//!== - czy wartości są różne. W przypadku różnych typów zawsze zwróci false
+let a = 10;
+let b = 20;
+console.log(a !== b); //true
+console.log(a != '10'); //false
+console.log(a !== '10'); //true
+
+//< i > - mniejsze i większe
+let a = 10;
+let b = 20;
+console.log(a < b); //true
+console.log(a > b); //false
+
+//<= i >= - mniejsze-równe i większe-równe
+let a = 10;
+let b = 20;
+let c = 10;
+console.log(a <= b); //true
+console.log(a <= c); //true
 ```
 
 ### Operatory logiczne
 
 ```js
-// TODO
+&& // and (i)
+|| // or (lub)
+^ // xor (jeden z, ale nie dwa równocześnie)
+! // not (negacja)
+
+//&& - operator "i" - wszystkie warunki muszą być spełnione
+let x = 6;
+let y = 3;
+console.log(x > 3 && y > 3); //false bo drugie równanie nie jest prawdą
+
+//|| - operator "lub" - przynajmniej jeden warunek musi być spełniony
+let x = 0;
+let y = 3;
+console.log(x > 3 || y > 2); //true bo drugi warunek jest spełniony
+
+//^ - operator "xor" - przynajmniej jeden warunek musi być spełniony, ale nie wszystkie naraz
+let x = 3;
+let y = 3;
+let z = 5;
+console.log(x > 2 ^ y < z); //0 czyli false, bo wszystkie są spełnione
+
+//! - "negacja" czyli odwrócenie true na false i odwrotnie
+let x = 2;
+let y = 0;
+console.log(!true); //false
+console.log(!false); //true
+console.log(x && y); //false bo y === 0
+console.log(!(x && y)) //true
+
 ```
 
 ### Operatory logiczne w równaniach
 
 ```js
-// TODO
+// &&
+// jeśli pierwsza jest false podstaw drugą wartość
+// w przeciwnym wypadku podstaw pierwszą
+const a = 100 && 300;
+console.log(a); //300 - a jest prawdą, więc weź drugą wartość
+
+const a = 200 && 0;
+console.log(a); //0 - a jest prawdą, więc weź drugą wartość
+
+const a = 0;
+const b = 200;
+const c = a && b;
+console.log(c); //0 bo a jest falsy, więc zostań na niej
+
+// ||
+// podstawia pod zmienną wartość pierwszą , gdy jest ona inna od falsy
+// w przeciwnym wypadku podstaw drugą wartość
+const text = 'kot' || 'brak';
+console.log(text); //"kot"
+
+const text = '' || 'pies';
+console.log(text); //"pies"
+
+const a = 0 || 200;
+console.log(a); //200
+
+const a = 200;
+const b = 100;
+const c = a || b;
+console.log(c); //200
+
+const tab = ['ala', 'bala']; //3 elementu nie ma czyli undefined
+const x = tab[2] || 'brak';
+console.log(x); //"brak"
+
+// ??
+// prawa wartość zwracama jest gdy lewa
+// ma wartość undefined lub null (nie false)
+const x = null || 10;
+const y = null ?? 10;
+console.log(x); //10
+console.log(y); //10
+
+const x = '' || 10;
+const y = '' ?? 10;
+console.log(x); //10
+console.log(y); //""
+
+const tab = ['ala', 'bala'];
+const x = tab[2] || 'brak';
+const y = tab[2] ?? 'brak';
+console.log(x); //"brak"
+console.log(y); //"brak"
+
+// w EcmaScript 2021 powyże możemy bardziej uprościć
+
+// ||=
+// podstawi nową wartość tylko wtedy,
+// gdy obecna wartość jest false
+let a = 0;
+let b = 'kot';
+a ||= b;
+console.log(a); //"kot"
+
+let a = 'pies';
+let b = 'kot';
+a ||= b;
+console.log(a); //"pies"
+
+// &&=
+// podstawi pod zmienną nową wartość
+// gdy obecna wartość jest inna niż false
+let a = 1;
+let b = 0;
+
+a &&= 20;
+console.log(a); //20
+
+b &&= 20;
+console.log(b); //0
+
+// ??=
+// podstawi nową wartość, gdy obecna wartość
+// jest null lub undefined
+let a = null;
+a ??= 200;
+console.log(a); //200
+
+let a = 0;
+a ??= 200;
+console.log(a); //0
+
+let a = {
+   nr: 100,
+};
+a.something ??= 200;
+a.nr ??= 300;
+console.log(a.something); //200
+console.log(a.nr); //100
 ```
 
 # Instrukcje warunkowe
