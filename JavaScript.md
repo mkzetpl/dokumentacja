@@ -670,8 +670,149 @@ switch (car) {
 
 # Pętle for i while
 
+### Pętla typu for
+
 ```js
-// TODO
+
+for (zainicjowanie_zmiennych;  warunek_kończący_wykonywanie_pętli;  zmiana_zmiennych) {
+    kod który zostanie wykonany pewną ilość razy
+}
+
+// przykłady
+for (let i = 0; i < 10; i++) {
+   console.log('Wykonanie pętli ', i);
+}
+
+// pętla w przeciwnym kierunku
+for (let i = 10; i > 0; i--) {
+   console.log('Trwa odliczanie', i);
+}
+
+// inny warunek kończący
+const a = 10;
+const b = 20;
+
+for (let i = 1; i <= a && i <= b; i++) {
+   //bo oba muszą być prawdziwe
+   console.log('Wypisze się tyle co ma mniejsza liczba', i);
+}
+
+let a = 10;
+let i = 0;
+for (; i < 10; ) {
+   console.log(i);
+   i++;
+}
+```
+
+### Pętla typu while
+
+```js
+while (wyrażenie_sprawdzające_zakończenie_pętli) {
+    ...fragment kodu który będzie powtarzany...
+}
+
+// przykład
+let i = 1;
+
+while (i <= 100) {
+    console.log("Nie będę...");
+    i++;
+}
+
+// while zazwyczaj stosuje się w sytuacjach,
+// kiedy nie wiemy dokładnie,
+// ile iteracji (powtórzeń) ma się wykonać
+let i = 0;
+
+while (i < 0.5) {
+    console.log(i);
+    i = Math.random();
+}
+
+console.log(i);
+
+```
+
+### Pętla typu do while
+
+```js
+let i = 0;
+
+do {
+   i++;
+   console.log(i);
+} while (i < 5);
+
+// taki typ pętli wykona się minimum 1 raz
+let i = 0;
+
+do {
+   i++;
+   console.log(i);
+} while (false); //warunek od początku nie spełniony ale i tak 1 raz się wykona
+```
+
+### Break i continue
+
+```js
+// breake kończy dalsze wykonywanie takiej pętli
+let str = '';
+let i = 0;
+
+while (i <= 100) {
+   str += i;
+   if (str.length > 20) break;
+   i++;
+}
+
+console.log(str);
+
+// continue powoduje przerwanie danej iteracji
+const tab = ['Ala', 'Monika', 'Beata', 'Karol', 'Alicja'];
+
+for (let i = 0; i < tab.length; i++) {
+   if (tab[i] === 'Karol') {
+      continue; //Karola pomiń
+   }
+   console.log(tab[i]);
+}
+
+// continue w pętli while, zwiększanie licznika
+// musimy robić przed użyciem tej instrukcji.
+// Inaczej możemy trafić na moment, gdy aktualne
+// powtórzenie będzie przerywane a tym samym
+// zwiększanie licznika nigdy nie nastąpi
+let i = 0;
+let sum = 0;
+
+while (i < 5) {
+   i++;
+   if (i === 3) continue;
+   sum += i;
+   console.log(i, `suma kolejnych liczb to ${sum}`);
+}
+```
+
+### Labele dla pętli
+
+```js
+// Dzięki nim możemy stosować instrukcje
+// break i continue dla pętli o danej nazwie
+
+// break
+first: for (let i = 0; i < 10; i++) {
+   second: for (let j = 0; j < 10; j++) {
+      if (warunek) break first; //przerywam główną pętlę
+   }
+}
+
+// continue
+loopA: for (let i = 0; i < 10; i++) {
+   loopB: for (let j = 0; j < 10; j++) {
+      if (warunek) continue loopA;
+   }
+}
 ```
 
 # Number i Math
