@@ -403,7 +403,7 @@ const y = tab[2] ?? 'brak';
 console.log(x); //"brak"
 console.log(y); //"brak"
 
-// w EcmaScript 2021 powyże możemy bardziej uprościć
+// w EcmaScript 2021 powyższe możemy bardziej uprościć
 
 // ||=
 // podstawi nową wartość tylko wtedy,
