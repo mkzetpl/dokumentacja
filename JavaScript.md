@@ -818,7 +818,95 @@ loopA: for (let i = 0; i < 10; i++) {
 # Number i Math
 
 ```js
-// TODO
+// Number - czyli typ danych
+// pozwalający pracować na liczbach
+const nr1 = 102;
+const nr2 = 1.25;
+
+const nr1 = 1e6; //1 * 1000000
+const nr2 = 2e5; //2 * 100000
+const nr3 = 1.3e4; //1.3 * 10000
+
+const nr1 = 1e-5; //5 zer na lewo od liczby => 0.00001
+const nr2 = 2e-3; //3 zera na lewo 0.002
+const nr3 = 2.1e-4; //4 zera na lewo 0.00021
+
+// zapis liczb systemm dwójkowym,
+// hexadecymalnym oraz ósemkowym
+
+//szesnastkowy
+console.log(0xff); //255
+console.log(0x66); //102
+
+//ósemkowy
+const nr1 = 0o377; //255
+
+//dwójkowy
+const nr2 = 0b11111111; //255
+```
+
+### Funkcja toString()
+
+```js
+const nr = 150;
+console.log(nr.toString(16)); //"96"
+console.log(nr.toString(10)); //"150"
+console.log(nr.toString(2)); //"10010110"
+console.log(nr.toString()); //"150" - domyślnie dziesiętny
+```
+
+### Math
+
+```js
+const var1 = 56.5;
+const var2 = 74.3;
+
+Math.min(var1, var2); //56.5
+Math.max(var1, var2); //74.3
+Math.max(1, 3, 6, 2); //6
+
+// wartość bezwzględna
+Math.abs(-1); //1
+
+// zwraca daną liczbę zaokrągloną
+// do najbliższej liczby całkowitej
+Math.round(var1); //57
+Math.round(20.52); //21
+Math.round(-10.21); //-10
+Math.round(-11.82); //-12
+
+// zwraca największą liczbę całkowitą
+// mniejszą od lub równą danej
+Math.floor(var1); //56
+Math.floor(20.52); //20
+Math.floor(-10.21); //-11
+Math.floor(-11.82); //-12
+
+// zwraca najmniejszą liczbę całkowitą
+// większą od lub równą danej
+Math.ceil(var1); //57
+Math.ceil(20.52); //21
+Math.ceil(-10.21); //-10
+Math.ceil(-11.82); //-11
+
+// zwraca pierwiastek kwadratowy danej liczby.
+Math.sqrt(4); // 2
+
+//zwraca daną liczbę podniesioną do danej potęgi
+// Math.pow(podstawa, wykładnik)
+Math.pow(2, 3); // 8
+
+//zwraca liczbą pseudolosową z przedziału 0 do 1
+Math.random(); // np 0.23489431423129448
+```
+
+### Losowa liczba z przedziału
+
+```js
+const min = 3;
+const max = 7;
+
+const result = Math.floor(Math.random() * (max - min + 1) + min);
 ```
 
 # Stringi
