@@ -818,7 +818,7 @@ loopA: for (let i = 0; i < 10; i++) {
 # Number i Math
 
 ```js
-// Number - czyli typ danych
+// Number - czyli typ danychh
 // pozwalający pracować na liczbach
 const nr1 = 102;
 const nr2 = 1.25;
