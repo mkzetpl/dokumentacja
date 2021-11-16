@@ -889,6 +889,12 @@ Math.ceil(20.52); //21
 Math.ceil(-10.21); //-10
 Math.ceil(-11.82); //-11
 
+// sprawdza czy argument jest dodatni, ujemny czy zerem.
+Math.sign(5); // 1
+Math.sign(-5); // -1
+Math.sign(0); // 0
+Math.sign('text'); // NaN
+
 // zwraca pierwiastek kwadratowy danej liczby.
 Math.sqrt(4); // 2
 
