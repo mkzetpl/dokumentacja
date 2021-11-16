@@ -1485,7 +1485,216 @@ console.log(users);
 # Funkcje
 
 ```js
-// TODO
+// podstawowa deklaracja funkcji
+function nazwaFunkcji(nr) {
+   const result = nr * nr;
+   return result;
+}
+
+// wywołanie
+nazwaFunkcji(2); //4
+nazwaFunkcji(3); //9
+nazwaFunkcji(5); //25
+nazwaFunkcji(); //NaN
+
+// Jeżeli nasza funkcja wymaga pewnych
+// wartości, a my ich nie podamy, zostaną
+// użyte dla nich wartości undefined
+function writeText(name, age) {
+   console.log(`${name} ma kota, który ma ${age} lat`);
+}
+
+writeText('Ala', 5); //"Ala ma kota, który ma 5 lat"
+writeText('Marysia'); //"Marysia ma kota, który ma undefined lat"
+writeText(); //"undefined ma kota, który ma undefined lat"
+```
+
+### Domyślne wartości funkcji
+
+```js
+// Wystarczy po nazwie parametru
+// ustawić mu domyślną wartość
+function print(name = 'Michał', status = 'najlepszy') {
+   console.log(name + ' jest ' + status);
+}
+
+print(); //"Michał jest najlepszy"
+print('Karol'); //"Karol jest najlepszy"
+print('Paweł', 'wysoki'); //"Paweł jest wysoki"
+print(undefined, 'wysoki'); //"Michał jest wysoki" - undefined jest traktowane jak niepodanie wartości
+```
+
+### arguments i rest
+
+```js
+// Jeżeli nie zakładamy konkretnej liczby parametrów
+// możemy skorzystać z właściwości arguments,
+// która zawiera w sobie wszystkie przekazane wartości:
+
+function show() {
+   console.log(arguments);
+}
+
+show(); // []
+show(1, 2, 3, 4); // [1, 2, 3, 4]
+show('ala', 'ma', 'kota'); // ["ala", "ma", "kota"]
+
+// Obiekt arguments jest tablico podobny,
+// ale tak naprawdę nie jest tablicą.
+// Oznacza to, że nie możemy na nim wykonywać
+// metod przeznaczonych dla tablic np. reduce, map i podobnych:
+
+// rest operator, zbiera przekazane
+// argumenty w postaci klasycznej tablicy
+
+function myF(...param) {
+   console.log(param);
+}
+
+myF(1, 2, 3, 4, 5); // [1, 2, 3, 4, 5]
+
+// inny przykład
+function myF(...param) {
+   const newTab = [...param];
+   newTab.push('Ala');
+   console.log(param, newTab);
+}
+
+myF(1, 2, 3); // [1,2,3], [1,2,3,"Ala"]
+
+// Rest operator możemy też wykorzystywać d
+// o pobierania w formie tablicy
+// "pozostałych" wartości:
+function printAbout(name = 'Ala', ...other) {
+   console.log('To jest ' + name);
+
+   if (other.length) {
+      console.log(`${name} ma zwierzaki: ${other}`);
+   }
+}
+
+printAbout('Marcin', 'pies', 'kot'); //To jest Marcin. Marcin ma zwierzaki: pies,kot
+printAbout(); //To jest Ala
+
+// WAŻNE: rest musi występować jako
+// ostatni w parametrach:
+function myF(a, b, ...numbers) {
+}
+
+function myF(a, ...numbers, b) { // błąd
+}
+```
+
+### Instrukcja return
+
+```js
+function calculate(number1, number2) {
+   const result = number1 + number2;
+   return result;
+}
+
+calculate(10, 4); //wypisze 14
+
+// return przerywa dalsze działanie funkcji
+function sum(a, b) {
+   return a + b;
+
+   console.log(a + b); //nigdy nie zostanie wykonane,
+   console.log('Test');
+}
+
+// instrukcji return może być wiele dla
+// jednej funkcji. Zawsze jednak wykonana
+// zostanie tylko jedna
+function getStatus(number) {
+   if (number < 20) {
+      return 'bad';
+   }
+
+   if (number < 30) {
+      return 'medium';
+   }
+
+   return 'good';
+}
+console.log(getStatus(10));
+console.log(getStatus(25));
+
+// instrukcja return może zwracać dowolną wartość
+// np tablicę
+function returnArray() {
+   return [4, 3, 5, 8];
+}
+let a = returnArray();
+console.log(a[0]); //4
+
+// np obiekt
+function returnObject() {
+   return {
+      first: 'ala',
+      second: 'bala',
+      third: 'cala',
+   };
+}
+console.log(returnObject().first); //"ala"
+```
+
+### Wyrażenia funkcyjne
+
+```js
+// czyli podstawienie funkcji pod zmienną
+const printText = function () {
+   console.log('ala ma kota');
+};
+printText();
+
+// hoisting nie działa w przypadku
+// wyrażenia funkcyjnego
+myFunction(); //Błąd
+
+const myFunction = function () {
+   console.log('...');
+};
+
+// przy zwykłej deklaracji funkcji działa
+myFunction(); //Tutaj jest ok
+
+function myFunction() {
+   console.log('...');
+}
+
+// inna różnica między deklaracją
+// w klasyczny sposób i wyrażeniem funkcyjnym
+function testX() {
+   console.log('x');
+}
+
+const textY = function () {
+   console.log('y');
+};
+
+window.testX(); //"x"
+window.testY(); //błąd
+```
+
+### Funkcja anonimowa
+
+```js
+// funkcja anonimowa to taka funkcja,
+// która nie ma swojej nazwy
+// wykorzystywane są jako funkcje zwrotne,
+// które przekazujemy do innych funkcji
+document.addEventListener('click', function () {
+   console.log('klik');
+});
+
+[1, 2, 3].forEach(function (el) {
+   console.log(el);
+});
+
+[1, 2, 3].sort(function (a, b) {
+   return a - b;
+});
 ```
 
 # Funkcja strzałkowa
