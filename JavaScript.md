@@ -151,7 +151,7 @@ String(null); //"null"
 String(undefined); //"undefined"
 
 // konwersja na liczbę
-// Number() i parseInt()
+// Number(), parseInt(), parseFloat();
 console.log(Number('100')); // 100
 console.log(Number('50.5')); // 50.5
 console.log(Number('50px')); // NaN
@@ -162,6 +162,19 @@ console.log(parseInt('100kot', 10)); // 100
 console.log(parseInt('Ala102', 10)); // NaN - zaczyna się od liter
 console.log(parseInt('Hello', 10)); // NaN
 console.log(parseInt('1000', 2)); // 8
+
+// Różnica pomiędzy parseFloat() a funkcją Number()
+//  jest taka, że pierwsza z nich na końcu tekstu
+// ignoruje wszystkie znaki niebędące poprawnym
+// zapisem liczbowym, a druga - tylko białe znaki.
+console.log(parseFloat('26.5px', 10)); // 26.5
+console.log(parseFloat('10')); // 10
+console.log(parseFloat('10.00')); // 10
+console.log(parseFloat('10.33')); // 10.33
+console.log(parseFloat('34 45 66')); // 34
+console.log(parseFloat('   60   ')); // 60
+console.log(parseFloat('40 years')); // 40
+console.log(parseFloat('He was 40')); // NaN
 
 // toFixed(digits)
 // zwraca tekst będący liczbą zapisaną z daną precyzją.
@@ -887,7 +900,7 @@ Math.floor(-11.82); //-12
 Math.ceil(var1); //57
 Math.ceil(20.52); //21
 Math.ceil(-10.21); //-10
-Math.ceil(-11.82); //-11
+Math.ceil(-11.82); //-11`
 
 // sprawdza czy argument jest dodatni, ujemny czy zerem.
 Math.sign(5); // 1
