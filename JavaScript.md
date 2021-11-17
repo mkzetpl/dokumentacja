@@ -1789,8 +1789,62 @@ const getObj = name => ({ team : name, score : 0 }) //ok
 
 ```
 
-# Spread i rest
+# Spread
+
+### Spread
 
 ```js
-// TODO
+// umożliwia rozbijanie iterowanej
+// wartości na składowe
+// stringów, tablic, obiektów, kolekcji
+//rozbijanie tablicy na poszczególne liczby
+const tab = [1, 2, 3, 4];
+console.log(...tab); //1, 2, 3, 4
+
+//kopiowanie tablicy
+const tab2 = [...tab];
+
+//łączenie tablic
+const tabPart = [3, 4];
+const tabFull = [1, 2, ...tabPart, 5, 6]; //[1, 2, 3, 4, 5, 6]
+
+//rozdzielanie tekstu na poszczególne litery
+const str = 'Ala';
+const tab = [...str]; //["A", "l", "a"]
+
+// Math.max wymaga parametrów po przecinku
+// nie jako tablica więc można tutaj zastosować spread:
+
+const tab = [1, 2, 3, 5, 4];
+Math.max(...tab); //5
+
+// spread wykorzystuje się do zamiany kolekcji
+// elementów na tablicę, dzięki czemu można
+// używać dla nich metod tablicowych
+
+const divs = document.querySelectorAll('div');
+//nowa tablica z samymi tekstami z divów
+const texts = [...divs].map((el) => el.innerText);
+
+// spread możemy też zastosować dla obiektów
+
+const ob1 = {
+   a: 10,
+   b: 20,
+};
+
+const ob2 = {
+   a: 15,
+   c: 30,
+};
+
+const obBig = {
+   ...ob1,
+   ...ob2,
+   d: 40,
+};
+
+console.log(obBig); //{ a : 15, b : 20, c : 30, d : 40 }
 ```
+
+## Obiekty
