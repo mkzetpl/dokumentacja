@@ -1848,3 +1848,107 @@ console.log(obBig); //{ a : 15, b : 20, c : 30, d : 40 }
 ```
 
 ## Obiekty
+
+### Tworzenie pojedynczego obiektu
+
+```js
+const dog = {
+   name: 'Szama',
+   speed: 1000,
+   showText: function () {
+      return 'To jest pies';
+   },
+};
+
+// metody dla obiektów można definiować
+// bez słowa function
+// zamiast powyższego  można:
+const dog = {
+   name: 'Szama',
+   speed: 1000,
+   showText() {
+      return 'To jest pies';
+   },
+};
+
+// jeżeli pod klucze podstawiamy
+// wartości z jakiś zmiennych i mają
+// te same nazwy  to możemy:
+const name = 'Szama';
+const speed = 1000;
+
+// zamiast
+const dog = {
+   name: name,
+   speed: speed,
+   showText() {
+      return 'To jest pies';
+   },
+};
+
+// możemy napisać
+const dog = {
+   name,
+   speed,
+   showText() {
+      return 'To jest pies';
+   },
+};
+
+// niby skromne, a ma sporą moc
+const tab = [];
+const name = 'Szama';
+const speed = 1000;
+
+//zamiast
+const ob = {
+   name: name,
+   speed: speed,
+};
+tab.push(ob);
+
+//mogę
+tab.push({
+   name: name,
+   speed: speed,
+});
+
+//lub jeszcze lepiej
+tab.push({ name, speed });
+```
+
+### Odwoływanie się do właściwości
+
+```js
+// TODO
+```
+
+### Dodawanie nowych właściwości
+
+```js
+// TODO
+```
+
+### Obiekty w obiektach
+
+```js
+// TODO
+```
+
+### this
+
+```js
+// TODO
+```
+
+### Usuwanie właściwości i metod
+
+```js
+// TODO
+```
+
+### Pętla po obiekcie
+
+```js
+// TODO
+```
