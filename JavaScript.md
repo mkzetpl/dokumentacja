@@ -1700,7 +1700,93 @@ document.addEventListener('click', function () {
 # Funkcja strzałkowa
 
 ```js
-// TODO
+// funkcja strzałkowa to skrócony
+// zapis wyrażenia funkcyjnego
+const myFn = function () {};
+
+// to co powyżej można zapisać:
+const myFn = () => {};
+
+// przy jednym argumencie można pominąć nawiasy
+const myF = function (a) {
+   console.log(a * a);
+};
+
+// to co powyżej  można zapisać: (a) lub a
+const myF = (a) => {
+   console.log(a * a);
+};
+
+// jeżeli parametrów jest więcej,
+// lub nie ma żadnego, wtedy nawiasy muszą zostać:
+const myF = function () {
+   console.log('Ala ma kota');
+};
+
+const myF = () => {
+   console.log('Ala ma kota');
+};
+
+// jeżeli funkcja ma tylko jedną
+// instrukcję, można pominąć też klamry
+const myF = function (a) {
+   console.log(a * a);
+};
+
+const myF = (a) => console.log(a * a);
+
+//  jeżeli jedyną instrukcją jest
+// instrukcja return, także i jej można się pozbyć
+const myF = function (a) {
+   return 'Wynik to: ' + a * a;
+};
+
+const myF = (a) => 'Wynik to: ' + a * a;
+
+//  jeżeli funkcja ma więcej instrukcji
+// klamry muszą pozostać
+const myF = function (a, b) {
+   const result = a * b;
+   console.log('Wynik mnożenia to', result);
+   return result;
+};
+
+const myF = (a, b) => {
+   const result = a * b;
+   console.log('Wynik mnożenia to', result);
+   return result;
+};
+
+// jeżeli jedyną instrukcją jest zwracanie obiektu,
+// zachodzi konflikt między redukcją klamer, a klamrami obiektu.
+// zwracany obiekt trzeba objąć nawiasami
+const getObj = function(name) {
+    return { team : name, score : 0 }
+}
+
+const getObj = name => { team : name, score : 0 } //błąd
+const getObj = name => ({ team : name, score : 0 }) //ok
+
+// INFO
+// 1.
+// Funkcje strzałkowe nie mają wiązania this i super.
+// Dlatego nie powinniśmy ich używać do definiowania
+// metod w obiektach i klasach
+
+// 2.
+// Nie posiadają właściwości arguments i new.target
+
+// 3.
+// Użycie dla nich call, apply i bind
+// nie da oczekiwanych rezultatów ( bo nie ma powiązania this)
+
+// 4.
+// Nie można ich używać jako konstruktorów
+
+// 5.
+// Nie wolno używać w nich yield
+
+
 ```
 
 # Spread i rest
