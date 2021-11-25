@@ -1847,7 +1847,7 @@ const obBig = {
 console.log(obBig); //{ a : 15, b : 20, c : 30, d : 40 }
 ```
 
-## Obiekty
+# Obiekty
 
 ### Tworzenie pojedynczego obiektu
 
@@ -2207,6 +2207,4 @@ for (const key in car) {
 // name
 // color
 // speed
-
-
 ```
