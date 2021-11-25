@@ -2098,6 +2098,202 @@ const car2 = {
 
 car1.showText(); //"Mercedes koloru czerwony"
 car2.showText(); //"BMW koloru czarny"
+
+// global context
+
+// Jeżeli nasz kod uruchamiany jest
+// z najwyższego poziomu to wskauje na window
+// dla środowiska Node.js jest to Object [global]
+console.log(this); // window
+
+// w każdym momencie możemy odwołać się
+// do tego globalnego kontekstu
+// poprzez użycie zmiennej globalThis
+const ob = {
+   show() {
+      console.log(this); //ob
+      console.log(globalThis); //window
+      console.log(globalThis === window); //true
+   },
+};
+
+ob.show();
+
+// function context
+
+// jeśli funkcja nie jest metodą obiektu
+// to this będzie wskazywało na obiekt globalny
+console.log(this); //window
+
+function test() {
+   console.log(this); //window
+}
+
+test();
+
+// wyjątkiem jest używanie strict mode
+// lub używanie modułów ES6 które automatycznie
+// włączają strict mode
+// "use strict;"
+('use strict;');
+
+console.log(this); //window dla przeglądarki lub module.exports dla Node.js
+
+function test() {
+   console.log(this); //undefined
+}
+
+test();
+
+// jeśli funkcja jets metodą obiektu
+// to this wskazuje na ten obiekt
+const ob = {
+   name: 'pies',
+   show() {
+      console.log(this); //ob
+   },
+};
+
+ob.show();
+
+// tak samo dzieje sie w innych obiektach
+Math.max(...) //this w metodzie max() wskazuje na Math
+[1,2,3,4].push(5) //this w metodzie push() wskazuje na tablicę
+window.alert() //this w metodzie alert() wskazuje na window
+"Ala ma kota".toUpperCase() //this w metodzie toUpperCase() wskazuje na tekst
+
+// powyższe zasady tyczą się każdego
+// poziomu zagnieżdżenia
+function testX() {
+    console.log(this); //window
+}
+testX();
+
+const ob = {
+   name : "pies",
+
+   show() {
+        console.log(this); //ob
+
+        //poniższa funkcja NIE JEST metodą obiektu ob
+        //ani metodą poniższego obiektu obj
+        function testY() {
+            console.log(this); //window
+        }
+        testY();
+
+        const obj = {
+            show() {
+                console.log(this); //obj
+            }
+        }
+        obj.show();
+   }
+}
+
+ob.show();
+
+// zmiana kontekstu this
+// bind() i funkcja strzałkowa
+const ob = {
+    pets : ["kot", "pies", "chomik"],
+
+    bindButton() {
+        console.log(this); //ob
+        console.log(this.pets); //["kot", "pies", "chomik"]
+
+        //pobieramy przycisk
+        const btn = document.querySelector("button");
+
+        //podpinamy mu nasłuchiwanie kliknięcia
+        btn.addEventListener("click", function() {
+            console.log(this); //button
+
+            //?????? - jak się odwołać do powyższej tablicy pets?
+            //skoro this wskazuje na buttona
+            console.log(this.pets);
+        });
+    }
+}
+
+ob.bindButton();
+
+// 1. funkcja bind(newThis, param1*, param2*...)
+const ob = {
+    pets : ["kot", "pies", "chomik"],
+
+    bindButton() {
+        const btn = document.querySelector("button");
+        btn.addEventListener("click", function() {
+            console.log(this.pets);
+        }.bind(this));
+    }
+}
+
+ob.bindButton(); //["kot", "pies", "chomik"],
+
+//
+const ob = {
+    pets : ["kot", "pies", "chomik"],
+
+    showPets() {
+        console.log(this.pets);
+    },
+
+    bindButton() {
+        const btn = document.querySelector("button");
+        btn.addEventListener("click", this.showPets.bind(this));
+    }
+}
+
+ob.bindButton();
+
+// 2. lub funkcja strzałkowa
+const ob = {
+    pets : ["kot", "pies", "chomik"],
+
+    showPets() {
+        console.log(this.pets);
+    },
+
+    bindButton() {
+        const btn = document.querySelector("button");
+
+        btn.addEventListener("click", function() {
+            this.showPets(); //błąd bo btn nie ma takiej metody
+        });
+
+        btn.addEventListener("click", () => {
+            this.showPets(); //["kot", "pies", "chomik"]
+        });
+
+        //lub krócej
+        btn.addEventListener("click", () => this.showPets());
+    }
+}
+
+ob.bindButton();
+
+// 3. bind() wraz z funkcją strzałkową
+// stosowana w klasowych komponentach Reacta
+const ob = {
+    pets : ["kot", "pies", "chomik"],
+
+    showPets() {
+        console.log(this.pets);
+    },
+
+    bindButton() {
+        this.showPets = this.showPets.bind(this);
+
+        const btn = document.querySelector("button");
+        btn.addEventListener("click", this.showPets);
+    }
+}
+
+ob.bindButton();
+
+
 ```
 
 ### Usuwanie właściwości i metod
@@ -2207,4 +2403,46 @@ for (const key in car) {
 // name
 // color
 // speed
+```
+
+### Destrukturyzacja
+
+```js
+// TODO
+```
+
+### Destrukturyzacja tablic
+
+```js
+// TODO
+```
+
+### Destrukturyzacja obiektów
+
+```js
+// TODO
+```
+
+### Destrukturyzacja w iteracji
+
+```js
+// TODO
+```
+
+### Destrukturyzacja i parametry funkcji
+
+```js
+// TODO
+```
+
+### Destrukturyzacja i rest
+
+```js
+// TODO
+```
+
+### Destrukturyzacja zagnieżdżonego obiektu
+
+```js
+// TODO
 ```
