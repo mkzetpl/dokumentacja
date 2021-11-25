@@ -1920,35 +1920,293 @@ tab.push({ name, speed });
 ### Odwoływanie się do właściwości
 
 ```js
-// TODO
+// Do właściwości i metod obiektu
+// możemy się odwoływać na dwa sposoby
+const dog = {
+   name: 'Szama',
+   speed: 1000,
+   showText() {
+      return 'Jestem psem';
+   },
+};
+// 1
+//poprzez kropkę po której podajemy nazwę klucza
+dog.name; //"Szama"
+dog.speed; //1000
+dog.showText(); //"Jestem psem"
+
+// 2
+//używając kwadratowych nawiasów
+dog['name']; //"Szama"
+dog['speed']; //1000
+dog['showText'](); //"Jestem psem"
+
+// czasami kwadratowe nawiasy
+// są niezbędne
+const calendar = {
+    "2021-11-11" : "Narodowe Święto Niepodległości"
+}
+calendar.2021-11-11 //oczywisty błąd bo odejmujemy od 2021 resztę liczb
+calendar["2021-11-11"] //"Narodowe Święto Niepodległości"
+
+// zamist powyższych dwóch metod
+// można użyć tzw. przypisania destrukturyzacji
+const obj = {
+    name: "Marcin",
+    surname: "Kowalski",
+    age: 10
+}
+
+//zamiast
+const name = obj.name;
+const surname = obj["surname"];
+const age = obj.age;
+
+//mogę
+const {name, surname, age} = obj;
+
+// to samo w tablicach, które
+// także są obiekatami
+// dokładny opis w destrukturyzacji obiektów
+const tab = ["Ala", "Ola", "Ela"];
+
+//zamiast
+const name1 = tab[0];
+const name2 = tab[1];
+
+//mogę
+const [name1, name2] = tab;
 ```
 
 ### Dodawanie nowych właściwości
 
 ```js
-// TODO
+// możemy dodawać metody i właściwości
+// w ciele obiektu ale także poza nim
+const dog = {
+   name: 'Szama',
+   speed: 1000,
+   showText() {
+      return 'Jestem psem';
+   },
+};
+
+dog.type = 'pies';
+dog.legs = 4;
+dog.eat = function () {
+   return 'Jem dobre rzeczy';
+};
+
+dog.eat();
+dog.showText();
+
+// do zapisu kluczy wewnątrz obiektu można
+// też użyć notacji z kwadratowymi nawiasami
+// we wcześniejszych wersjach trzeba było
+// to robić poza obiektem
+// Przydaje się raczej przy bardziej
+// zaawansowanym programowaniu,
+// gdzie używa się Symboli.
+
+//ES5
+const obj = {
+    name: "Karol",
+    surname: "Nowak"
+}
+obj["my pet"] = "Pies";
+obj["eat food"] = function() {
+    return "Lubię jeść jabłka";
+}
+
+//ES6
+const obj = {
+    name: "Karol",
+    surname: "Nowak"
+    ["my pet"] : "Pies",
+    ["eat food"]() {
+        return "Lubię jeść jabłka";
+    }
+}
+
+obj["my pet"] //"Pies"
+obj["eat food"]() //"Lubię jeść jabłka"
+
+
 ```
 
 ### Obiekty w obiektach
 
 ```js
-// TODO
+const person = {
+   name: 'Marcin',
+
+   pet: {
+      name: 'Szama',
+      color: 'brown',
+      speed: 1000,
+
+      collar: {
+         color: 'red',
+         length: '25cm',
+      },
+
+      favoriteFood: ['mięso', 'mięso', 'mięso'],
+   },
+};
+
+person.name; //"Marcin"
+person.pet.name; //"Szama"
+person.pet.collar.color; //"red"
+person.pet.favoriteFood[1]; //"mięso"
 ```
 
 ### this
 
 ```js
-// TODO
+const car = {
+   brand: 'Mercedes',
+   color: 'czerwony',
+   showText() {
+      console.log(`${this.brand} koloru ${this.color}`);
+   },
+};
+
+car.drive = function () {
+   console.log(this.brand + ' - jadę!');
+};
+
+car.showText(); //"Mercedes koloru czerwony"
+car.drive(); //"Mercedes - jadę!"
+
+// dzięki temu możemy np użyć
+// pojedyńczej funkcji dla kilku obiektów
+function show() {
+   console.log(`${this.brand} koloru ${this.color}`);
+}
+
+const car1 = {
+   brand: 'Mercedes',
+   color: 'czerwony',
+   showText: show,
+};
+
+const car2 = {
+   brand: 'BMW',
+   color: 'czarny',
+   showText: show,
+};
+
+car1.showText(); //"Mercedes koloru czerwony"
+car2.showText(); //"BMW koloru czarny"
 ```
 
 ### Usuwanie właściwości i metod
 
 ```js
-// TODO
+// aby usunąć właściwość lub metodę
+// obiektu, skorzystamy ze słowa delete
+const car = {
+   brand: 'Mercedes',
+   color: 'czerwony',
+   showText() {
+      console.log(`${this.brand} koloru ${this.color}`);
+   },
+};
+
+console.log(car.color); //czerwony
+delete car.color;
+console.log(car.color); //undefined
 ```
 
 ### Pętla po obiekcie
 
 ```js
-// TODO
+// przy pętli po kluczach obiektu
+// najczęściej stosowana jest pętla for in
+const car = {
+    brand: "Mercedes",
+    color: "czerwony",
+    showText() { ... }
+}
+
+for (const i in car) {
+    console.log(i); //brand, color, showText
+}
+
+// aby popbrać wartośći kluczy
+for (const key in car) {
+    console.log("Klucz: ", key);
+    console.log("Wartość: ", car[key]);
+}
+
+// żeby wypisać tylko klucze danego obiektu,
+//  musimy przeprowadzić dodatkowe sprawdzenie
+// za pomocą funkcji hasOwnProperty()
+const car = {
+    brand: "Mercedes",
+    color: "czerwony",
+    showText() { ... }
+}
+
+for (const key in car) {
+    if (car.hasOwnProperty(key)) {
+        console.log(key);
+    }
+}
+
+// obiekty w Javascript posiadają prototypy,
+// które są schowkiem dla wspólnych
+// funkcjonalności danej grupy obiektów.
+// Pętla for in robi pętlę po kluczach
+// danego obiektu, ale także
+// po kluczach prototypu danego obiektu
+
+    function Car(name, color, speed) {
+        this.name = name;
+        this.color = color;
+        this.speed = speed;
+    }
+
+    Car.prototype.drive = function() {
+        console.log(`${this.name} sobie jedzie`);
+    };
+
+    Car.prototype.refuel = function() {
+        console.log(`${this.name} zatankowany`);
+    };
+
+    Car.prototype.repair = function() {
+        console.log(`${this.name} został naprawiony`);
+    };
+
+    const car1 = new Car("BMW", "black", 100);
+
+    console.log("Pętla bez hasOwnProperty:");
+    for (const key in car1) {
+        console.log(key);
+    }
+
+    console.log(' ');
+    console.log("Pętla z hasOwnProperty:");
+    for (const key in car1) {
+        if (car1.hasOwnProperty(key)) {
+            console.log(key);
+        }
+    }
+
+// powyższe zwróci odpowiednio
+// pętla bez hasOwnProperty:
+// name
+// color
+// speed
+// drive
+// refuel
+// repair
+
+// pętla z hasOwnProperty:
+// name
+// color
+// speed
+
+
 ```
