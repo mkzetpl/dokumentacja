@@ -2672,3 +2672,101 @@ const {
 // Dzięki czemu został zabezpieczony wypadek,
 // gdyby nie było myObj w ogóle.
 ```
+
+### Kopiowanie obiektów
+
+```js
+//  jeżeli pod dwie i więcej zmiennych
+// podstawimy ten sam obiekt,
+// będą one wskazywać na ten sam byt
+const a = { name: 'kot' };
+const b = a;
+b.age = 5;
+console.log(a, b); //{name: "kot", age: 5}, {name: "kot", age: 5}
+
+// do kopiowania płaskich obiektów
+// możemy wykorzystać spread syntax
+const a = {
+   name: 'kot',
+   age: 3,
+};
+
+const b = { ...a };
+b.name = 'pies';
+
+console.log(a, b); //{name: "kot", age: 3}, {name: "pies", age: 3}
+
+// inny przykład
+const a = {
+   name: 'kot',
+   speed: 10,
+};
+const b = {
+   name: 'pies',
+   age: 5,
+};
+
+const c = { ...a, ...b };
+console.log(c); //{name : "pies", speed: 10, age: 5}
+
+// Object.assign(cel, ...źródła).
+// funkcja ta służy do kopiowania
+// wszystkich wyliczalnych właściwości
+// z jednego lub więcej obiektów
+// do obiektu docelowego
+const a = {
+   name: 'kot',
+   age: 7,
+   speed: 10,
+};
+
+const b = {
+   name: 'pies',
+   age: 5,
+};
+
+const c = Object.assign({}, a, b);
+console.log(c); //{name : "pies", age: 5, speed: 10}
+
+// inny przykład
+const o1 = { a: 1, b: 1, c: 1 };
+const o2 = { b: 2, c: 2 };
+const o3 = { c: 3 };
+
+const obj = Object.assign({}, o1, o2, o3);
+console.log(obj); //{ a: 1, b: 2, c: 3 }
+
+// spread i assign kopiuje tylko płaskie obiekty
+// jeżeli któraś z właściwości wskazuje
+// na inny obiekt, zostanie skopiowana
+// tylko referencja do tego obiektu
+const food = { type: 'rybki' };
+
+const a = {
+   name: 'kot',
+   food: food,
+};
+
+const b = { ...a };
+b.food.type = 'chrupki';
+
+console.log(b.food, a.food); //{type : "chrupki"}, {type : "chrupki"}
+
+// aby sklonować obiekt głęboko, trzeba
+// użyć np. obiektu JSON
+const ob = {
+   name: 'Marcin',
+   pet: {
+      name: 'Feliks',
+      kind: 'cat',
+   },
+};
+
+const ob2 = JSON.parse(JSON.stringify(ob));
+
+ob2.pet.name = 'Super Szamson';
+ob2.pet.kind = 'pies';
+
+console.log(ob.pet.name, ob2.pet.name); //Feliks, Super Szamson
+console.log(ob.pet.kind, ob2.pet.kind); //cat, pies
+```
