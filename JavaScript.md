@@ -2405,44 +2405,270 @@ for (const key in car) {
 // speed
 ```
 
-### Destrukturyzacja
-
-```js
-// TODO
-```
-
 ### Destrukturyzacja tablic
 
 ```js
-// TODO
+// tablica
+const tab = ['Ala', 'Ola', 'Ela'];
+
+//klasycznie
+const name1 = tab[0];
+const name2 = tab[1];
+
+//za pomocą destrukturyzacji
+const [name1, name2] = tab;
+
+// wyciągnięcie wartości, z pominięciem kolejnej
+const tab = ['Ala', 'Ola', 'Ela', 'Fela'];
+const [name1, name2, , name4] = tab;
+
+console.log(name1, name2, name4); //"Ala", "Ola", "Fela"
+
+// możemy ustawić domyślą wartość,
+// która zostanie użyta, jeżeli w tablicy
+// nie będzie wartości na danym indeksie
+const tab = ['Ala', 'Ola'];
+const [name1 = 'brak', name2 = 'brak', name3 = 'brak'] = tab;
+console.log(name1, name2, name3); //"Ala", "Ola", "brak"
+
+// przypisanie takie możemy też zastosować
+// przy zamianie miejscami wartości zmiennych
+let a = 1;
+let b = 5;
+
+[a, b] = [b, a];
+console.log(a); // 5
+console.log(b); // 1
 ```
 
 ### Destrukturyzacja obiektów
 
 ```js
-// TODO
+// obiekt
+const ob = {
+   name: 'Rudzik',
+   pet: 'kot',
+};
+
+//klasycznie
+const name = ob.name;
+const pet = ob['pet'];
+
+//za pomocą destrukturyzacji
+const { name, pet } = ob;
+
+// tak samo jak w przypadku tablic,
+// zmiennym możemy ustawić domyślą wartość
+const obj = {
+   first_name: 'Karol',
+   last_name: 'Kowalski',
+};
+
+const { first_name = 'brak', last_name = 'brak', favoritePet = 'brak' } = obj;
+
+console.log(first_name); //Karol
+console.log(last_name); //Kowalski
+console.log(favoritePet); //"brak"
+
+// gdy chcemy stworzyć zmienne o nowych nazwach,
+// trzeba użyć znaku dwukropka
+const obj = {
+   first_name: 'Karol',
+   last_name: 'Kowalski',
+};
+
+const {
+   first_name: name = 'brak',
+   last_name: surname = 'brak',
+   favoritePet: pet = 'brak',
+} = obj;
+
+console.log(name); //Karol
+console.log(surname); //Kowalski
+console.log(pet); //"brak"
 ```
 
 ### Destrukturyzacja w iteracji
 
 ```js
-// TODO
+.fetch(.....)
+.then(result => result.json())
+.then(result => {
+    //działamy na pobranych użytkownikach
+    for (const el of result.users) {
+        const {
+            name = "",
+            surname = "",
+            email = "",
+            plan = "basic"
+            role = "user",
+            www = ""
+        } = el;
+
+        console.log(surname, name, email, plan, role, www);
+    }
+});
 ```
 
 ### Destrukturyzacja i parametry funkcji
 
 ```js
-// TODO
+//  gdy mamy obiekt lub tablicę, można
+// używać desktruturyzacji do wyciągania
+// danych z jego wnętrza
+
+// Zamiast działać bezpośrednio
+// na danej zmiennej
+const buttons = document.querySelectorAll('button');
+
+//zamiast
+buttons.forEach((el) => {
+   console.log(`Tekst elementu to ${el.innerText} a jego id to ${el.id}`);
+});
+
+// można wyciągnąć odpowiednie dane
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach(({ innerText: text, id }) => {
+   console.log(`Tekst elementu to ${text} a jego id to ${id}`);
+});
+
+// podobnie będzie miało to miejsce
+// w przypadku przekazywania
+// wartości do funkcji
+
+// zamiast
+function showUser(ob) {
+   console.log(ob.name);
+   console.log(ob.surname);
+}
+
+const user = {
+   name: 'Marcin',
+   surname: 'Nowak',
+};
+
+showUser(user);
+
+// można
+function showUser({ name, surname }) {
+   console.log(name);
+   console.log(surname);
+}
+
+const user = {
+   name: 'Marcin',
+   surname: 'Nowak',
+};
+showUser(user);
+
+// w obiektach kolejność kluczy nie ma znaczenia,
+// dzięki czemu mogę przekazywać do funkcji
+// dane nie zważając na kolejność parametrów
+function print(name, speed, color, food) {}
+
+//mam kilka zmiennych, które chcę do niej przekazać
+const name = 'Szamson';
+const speed = 10000;
+const color = 'brown';
+const food = 'mięso';
+const type = 'dog';
+const profession = 'fight with bad guys';
+
+//w przypadku zwykłej funkcji muszę pamiętać kolejność parametrów
+print(name, speed, color, food);
+
+// zamiast pamiętania kolejności, można
+// skróconym zapisem stworzyć obiekt
+// i przekazać go do funkcji
+
+// ktoś przekazuje obiekt, i można go
+// od razu rozbić na odpowiednie zmienne
+function print({ name, speed, color, food }) {}
+
+const name = 'Szamson';
+const speed = 10000;
+const color = 'brown';
+const food = 'mięso';
+const type = 'dog';
+const profession = 'fight with bad guys';
+
+//tworzę obiekt skróconym zapisem i przekazuję do funkcji
+const ob = { name, speed, color, food };
+print(ob);
+
+//lub jeszcze krócej bez tworzenia dodatkowej zmiennej
+print({ name, food, speed, color, type, profession });
 ```
 
 ### Destrukturyzacja i rest
 
 ```js
-// TODO
+// operatora rest, co pozwala
+// wybierać resztę zmiennych:
+const tab = [1, 2, 3, 4, 5];
+const [first, ...other] = tab;
+console.log(first, other); //1, [2, 3, 4, 5]
+
+// możemy też stosować dla innych obiektów,
+// co przydaje się gdy chcemy
+// pomijać jakieś właściwości
+const ob = {
+   name: 'Piotrek',
+   age: 20,
+   surname: 'Nowak',
+   pet: 'pies',
+};
+
+const { pet, ...obWithoutPet } = ob;
+
+console.log(pet); //"pies"
+console.log(obWithoutPet); //obiekt bez właściwości pet
+
+// inny przykład
+const carData = {
+   brand: 'BMW',
+   color: 'red',
+   maxSpeed: 260,
+   owner: 'Jan Nowak',
+   ownerAge: 30,
+};
+
+const { owner, ownerAge, ...car } = carData;
+console.log(car); //car bez właściwości owner i ownerAge
 ```
 
 ### Destrukturyzacja zagnieżdżonego obiektu
 
 ```js
-// TODO
+// jeżeli za pomocą destrukturyzacji chcemy
+// wyciągać zagnieżdżone dane, wtedy w naszym
+// wzorze powinniśmy odwzorować wygląd
+// struktury obiektu
+const myObj = {
+   first_name: 'Karol',
+   last_name: 'Nowak',
+   role: 'driver',
+
+   pets: ['pies', 'kot'],
+
+   car: {
+      name: 'Honda',
+      year: 2002,
+      type: 'hatchback',
+   },
+};
+
+const {
+   first_name: name,
+   last_name: surname,
+   role,
+
+   pets: [pet1, pet2],
+
+   car: { name: carName, year: carYear, type: carType },
+} = myObj || {};
+// powyżej wzorzec został podstawiony pod myObj lub pusty obiekt
+// Dzięki czemu został zabezpieczony wypadek,
+// gdyby nie było myObj w ogóle.
 ```
