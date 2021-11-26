@@ -2770,3 +2770,65 @@ ob2.pet.kind = 'pies';
 console.log(ob.pet.name, ob2.pet.name); //Feliks, Super Szamson
 console.log(ob.pet.kind, ob2.pet.kind); //cat, pies
 ```
+
+### Dziedziczenie
+
+```js
+// TODO
+```
+
+### Tworzenie konstruktora
+
+```js
+// TODO
+```
+
+### Prototyp
+
+```js
+// TODO
+```
+
+### Rozbudowa prototypu
+
+```js
+// TODO
+```
+
+### Rozszerzanie wbudowanych typów
+
+```js
+// TODO
+```
+
+# Class
+
+### Deklaracja klasy
+
+```js
+// TODO
+```
+
+### constructor()
+
+```js
+// TODO
+```
+
+### Dodawanie metod
+
+```js
+// TODO
+```
+
+### Właściwości
+
+```js
+// TODO
+```
+
+### Metody statyczne
+
+```js
+// TODO
+```
