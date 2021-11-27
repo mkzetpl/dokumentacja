@@ -3195,28 +3195,173 @@ console.log( users[0].name ); // Tomek
 
 # Konstruktor dziedziczenie
 
-### Odwoływanie się do konstruktora ojca
+### Dziedziczenie
 
 ```js
-// TODO
+// tworzymy obiekt
+function Enemy(name, x, y) {
+   this.name = name;
+   this.x = x;
+   this.y = y;
+   console.log('Tworzę przeciwnika: ' + this.name);
+}
+
+Enemy.prototype.fly = function () {
+   return this.name + ' latam';
+};
+
+//dziedziczymy prototyp
+function EnemyShoot(name, x, y) {
+   this.name = name;
+   this.x = x;
+   this.y = y;
+   this.type = 'shooter';
+}
+
+EnemyShoot.prototype = Object.create(Enemy.prototype);
+//lub EnemyShoot.prototype = Object.assign({}, Enemy.prototype);
+//lub EnemyShoot.prototype = Object.create(...Enemy.prototype);
+EnemyShoot.prototype.constructor = EnemyShoot;
+
+EnemyShoot.prototype.shoot = function () {
+   return this.name + ' strzelam';
+};
+
+const enemyN = new Enemy('Normalny');
+console.log(enemyN.fly()); //Normalny latam
+console.log(enemyN.shoot()); //błąd - nie ma takiej metody
+
+const enemyS = new EnemyShoot('Shooter');
+console.log(enemyS.fly()); //Shooter latam
+console.log(enemyS.shoot()); //Shooter strzelam
 ```
 
-### Call i apply
+### Odwoływanie się do konstruktora ojaca: Call i apply
 
 ```js
-// TODO
-```
+function Enemy(name, x, y) {
+   this.name = name;
+   this.x = x;
+   this.y = y;
+   this.speed = Math.random() * 3;
+   //...tutaj 20 linii skomplikowanych wyliczeń dla naszego przeciwnika...
+   console.log('Tworzę przeciwnika: ' + this.name);
+}
 
-### Rozszerzamy konstruktor
+function EnemyShoot(name, x, y) {
+   //tutaj chcemy odpalić kod z powyższego konstruktora Enemy
+   //plus coś dodatkowego np.:
+   this.type = 'shooter';
+}
 
-```js
-// TODO
+// aby dokonać powyższego użyjemy metody call()
+function EnemyShoot(name, x, y) {
+   Enemy.call(this, name, x, y); //Enemy wymaga 3 parametrów
+   this.type = 'shooter';
+}
+
+const shooter = new EnemyShoot('Shooter'); //Tworzę przeciwnika: Shooter
+
+// call jest dostępna dla każdej
+// funkcji i służy do jej wywołania
+function myFunc() {
+   console.log('Jestem funkcją');
+}
+//odpalamy przez nazwę
+myFunc();
+//lub call
+myFunc.call();
+
+// pierwszy parametr funkcji call to wartość
+// kltóra zostanie podstawiona pod this
+const ob = {
+   name: 'Jan',
+   print() {
+      console.log('Mam na imię ' + this.name);
+   },
+};
+
+ob.print(); //Mam na imię Jan
+
+const ob2 = {
+   name: 'Roman',
+};
+
+//pożyczam metodę z tamtego obiektu
+ob.print.call(ob2); //Mam na imię Roman
+//i znowu pożyczam
+ob.print.call({ name: 'Jan' }); //Mam na imię Jan
+
+// jeżeli taka pożyczona funkcja
+// wymagałaby jakiś parametrów
+// to podajemy je jako kolejne
+const ob = {
+   name: 'x-wing',
+   print(shotCount, speed) {
+      console.log(
+         `${this.name} strzela ${shotCount} razy z szybkością ${speed}`
+      );
+   },
+};
+
+const tie = {
+   name: 'Tie fighter',
+};
+
+ob.print.call(tie, 5, 200); //Tie fighter strzela 5 razy z szybkością 200
+
+// jeżeli wiemy, że w funkcji nie
+// jest obsługiwane this
+// to przekazujemy null lub undefined
+const ob = {
+   sayHiToPet(pet) {
+      console.log(`Cześć ${pet} !!!`);
+   },
+};
+ob.sayHiToPet.call(null, 'Świnka'); //Cześć Świnka!!!
+
+// apply() działa tak samo
+// ale poza obiektem this przyjmuje tylko
+// jeden atrybut w postaci tablicy
+// która zawiera w sobie parametry
+const ob = {
+   name: 'nikt',
+   print(pet1, pet2) {
+      console.log(
+         `Nazywam się ${this.name} i mam 2 zwierzaki: ${pet1} i ${pet2}`
+      );
+   },
+};
+
+const user = {
+   name: 'Jan',
+};
+
+ob.print.apply(user, ['pies', 'kot']); //Nazywam się Jan i mam dwa zwierzaki: pies i kot
 ```
 
 ### instanceof
 
 ```js
-// TODO
+//  sprawdzanie, jakiego typu jest konkretny obiekt
+const enemyN = new Enemy('Normalny');
+enemyN.fly(); //Normalny latam
+
+const enemyS = new EnemyShoot('Shooter');
+console.log(enemyS.fly()); //Shooter latam i czasami strzelam!!!
+
+console.log(enemyN instanceof Enemy); //true
+console.log(enemyS instanceof EnemyShoot); //true
+console.log(enemyN instanceof Object); //true
+console.log(enemyS instanceof Object); //true
+
+const ob = {
+   name: 'Jan',
+};
+
+console.log(ob instanceof Object); //true
+console.log(ob instanceof Enemy); //false
+console.log(ob instanceof EnemyShoot); //false
 ```
 
 # Class dziedziczenie
@@ -3224,17 +3369,156 @@ console.log( users[0].name ); // Tomek
 ### extends
 
 ```js
-// TODO
+class Enemy {
+   constructor(name, x, y) {
+      this.name = name;
+      this.x = x;
+      this.y = y;
+      console.log('Tworzę przeciwnika: ' + this.name);
+   }
+
+   fly() {
+      return this.name + ' latam';
+   }
+}
+
+// dziedziczymy przez extends
+// super() wywołuje kod rozszerzanej metody
+class EnemyShoot extends Enemy {
+   constructor(name, x, y) {
+      super(name, x, y);
+      this.type = 'shooter';
+   }
+
+   shoot() {
+      return this.name + ' strzelam';
+   }
+}
+
+// w super() przekazujemy potrzebne wartości
+class Point {
+   constructor(x, y) {}
+}
+
+class Dot extends Point {
+   constructor(x, y, color) {
+      super(x, y);
+      this.color = color;
+   }
+}
+
+// w przypadku rozszerzania innych metod,
+// też używamy super, po której podajemy
+// nazwę rozszerzanej metody
+class Enemy {
+   constructor(name, x, y) {
+      this.name = name;
+      this.x = x;
+      this.y = y;
+      console.log('Tworzę przeciwnika: ' + this.name);
+   }
+
+   fly() {
+      return this.name + ' latam';
+   }
+}
+
+class EnemyShoot extends Enemy {
+   constructor(name, x, y) {
+      super(name, x, y);
+      this.type = 'shooter';
+   }
+
+   shoot() {
+      return this.name + ' strzelam';
+   }
+
+   fly() {
+      const text = super.fly();
+      return text + ' i czasami strzelam!!!';
+   }
+}
+
+const enemyN = new Enemy('Normal');
+enemyN.fly(); //"Normal latam"
+
+const enemyS = new EnemyShoot('Shooter');
+console.log(enemyS.fly()); //"Shooter latam i czasami strzelam!!!""
 ```
 
 ### Klasa abstrakcyjna
 
 ```js
-// TODO
+// klasa abstrakcyjna, to taka klasa,
+// na bazie której nie powinniśmy tworzyć
+// nowych instancji, a jedynie ją
+// w przyszłości rozszerzać
+class Animal {
+   constructor(name) {
+      if (this.constructor === Animal) {
+         throw new Error('Nie możesz tworzyć obiektów z klasy abstrakcyjnej!');
+      }
+      this.type = 'animal';
+      this.name = name;
+   }
+   eat() {
+      return 'I eat food';
+   }
+}
+
+//lub
+class Animal {
+   constructor(name) {
+      if (new.target === Animal) {
+         throw new Error('Nie możesz tworzyć obiektów z klasy abstrakcyjnej!');
+      }
+      this.type = 'animal';
+      this.name = name;
+   }
+   eat() {
+      return 'I eat food';
+   }
+}
 ```
 
 ### Rozszerzanie wbudowanych typów
 
 ```js
-// TODO
+// np Array
+class MyArray extends Array {
+   constructor(...param) {
+      super(...param);
+   }
+
+   sortNr() {
+      return this.sort((a, b) => a - b);
+   }
+}
+
+const tab1 = new Array(4, 5, 20, 21, 2.1, 1.2, 3);
+tab1.sortNr(); //błąd : nie ma takiej metody
+
+const tab2 = new MyArray(4, 5, 20, 21, 2.1, 1.2, 3);
+tab2.sortNr();
+console.log(tab2); //[1.2, 2.1, 3, 4, 5, 20, 21]
+
+// lub String
+class MyString extends String {
+   constructor(...param) {
+      super(...param);
+   }
+   mix() {
+      return [...this]
+         .map((letter, i) =>
+            i % 2 === 0 ? letter.toUpperCase() : letter.toLowerCase()
+         )
+         .join('');
+   }
+}
+
+const txt1 = new String('lubie koty i psy');
+txt1.mix(); //błąd : nie ma takiej metody
+
+const txt = new MyString('lubie koty i psy');
+console.log(txt.mix()); //LuBiE KoTy i pSy
 ```
