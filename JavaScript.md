@@ -3192,3 +3192,55 @@ users.sort( User.compareByAge );
 console.log( users[0].name ); // Tomek
 
 ```
+
+# Konstruktor dziedziczenie
+
+### Odwoływanie się do konstruktora ojca
+
+```js
+// TODO
+```
+
+### Call i apply
+
+```js
+// TODO
+```
+
+### Rozszerzamy konstruktor
+
+```js
+// TODO
+```
+
+### instanceof
+
+```js
+// TODO
+```
+
+### instanceof
+
+```js
+// TODO
+```
+
+# Class dziedziczenie
+
+### extends
+
+```js
+// TODO
+```
+
+### Klasa abstrakcyjna
+
+```js
+// TODO
+```
+
+### Rozszerzanie wbudowanych typów
+
+```js
+// TODO
+```
