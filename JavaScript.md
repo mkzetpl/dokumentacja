@@ -3522,3 +3522,75 @@ txt1.mix(); //błąd : nie ma takiej metody
 const txt = new MyString('lubie koty i psy');
 console.log(txt.mix()); //LuBiE KoTy i pSy
 ```
+
+# DOM
+
+## Document Object Model
+
+### Pobieranie elementów
+
+```js
+// TODO
+```
+
+### Pętle po kolejkach
+
+```js
+// TODO
+```
+
+### Gotowe kolekcje
+
+```js
+// TODO
+```
+
+### Żywe kolekcje
+
+```js
+// TODO
+```
+
+### Selektor :scope
+
+```js
+// TODO
+```
+
+## Właściwości elementów
+
+### innerHTML i outerHTML
+
+```js
+// TODO
+```
+
+### innerText i textContent
+
+```js
+// TODO
+```
+
+### tagName
+
+```js
+// TODO
+```
+
+### Praca z atrybutami
+
+```js
+// TODO
+```
+
+### dataset
+
+```js
+// TODO
+```
+
+### Atrybuty i właściwości
+
+```js
+// TODO
+```
