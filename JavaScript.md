@@ -2771,7 +2771,7 @@ console.log(ob.pet.name, ob2.pet.name); //Feliks, Super Szamson
 console.log(ob.pet.kind, ob2.pet.kind); //cat, pies
 ```
 
-### Dziedziczenie
+### Dziedziczenie w JS
 
 ```js
 // TODO
@@ -2780,25 +2780,187 @@ console.log(ob.pet.kind, ob2.pet.kind); //cat, pies
 ### Tworzenie konstruktora
 
 ```js
-// TODO
+//  konstruktor, na bazie
+// którego stworzymy nowe obiekty
+function Enemy(speed, power) {
+   this.live = 3;
+   this.speed = speed;
+   this.power = power;
+
+   this.print = function () {
+      console.log(`
+            Przeciwnik ma:
+            życia: ${this.live}
+            szybkości: ${this.speed}
+            siły ataku: ${this.power}
+        `);
+   };
+}
+
+// tworzenie obiektu na bazie
+//  nowego konstruktora
+const enemy1 = new Enemy(3, 10);
+enemy1.print();
+
+const enemy2 = new Enemy(5, 15);
+enemy2.print();
 ```
 
 ### Prototyp
 
 ```js
-// TODO
+// podczas tworzenia obiektu automatycznie
+// dostaje on właściwość __proto__
+// która wskazuje na ten obiekt
+const enemy1 = new Enemy(3, 10);
+console.log(enemy1.__proto__ === Enemy.prototype); //true
+
+// działa to dla każdego
+// typu JS
+const tabA = [1, 2, 3];
+const tabB = new Array(1, 2, 3);
+tabA.__proto__ === Array.prototype; //true
+tabB.__proto__ === Array.prototype; //true
+
+const txt = 'Ala ma kota';
+const txtB = new String('Ala ma kota');
+txtA.__proto__ === String.prototype; //true
+txtB.__proto__ === String.prototype; //true
 ```
 
 ### Rozbudowa prototypu
 
 ```js
-// TODO
+// prototyp jest obiektem tak więc
+// można także go rozbudowywać
+// jeśli coś do niego dodamy to będzie to
+// dostępne dla wszystkich instacji
+// już stworzonych i tworzonych w przyszłości
+function Enemy(speed, power) {
+   this.live = 3;
+   this.speed = speed;
+   this.power = power;
+}
+
+//dodajemy nowe metody do prototypu
+Enemy.prototype.attack = function () {
+   console.log(`Atakuje z siłą ${this.power}`);
+};
+
+Enemy.prototype.fly = function () {
+   console.log(`Lecę z szybkością ${this.speed}`);
+};
+
+//tworzę nowe obiekty
+const enemy1 = new Enemy(3, 10);
+enemy1.attack(); //Atakuje z siłą 10
+enemy1.fly(); //Lecę z szybkością 3
+
+const enemy2 = new Enemy(5, 15);
+enemy2.attack(); //Atakuje z siłą 15
+enemy2.fly(); //Lecę z szybkością 5
+
+// dodanie do prototypu
+// całego obiektu
+function SuperHero(name) {
+   this.name = name;
+}
+
+//inna metoda ustawiania prototypu
+//czy lepsza? Niekoniecznie. Można zapomnieć
+// o ustawieniu niektórych rzeczy np. właściwości - constructor
+SuperHero.prototype = {
+   speed: 'ultra',
+   strength: 90001,
+   action: function () {
+      return 'Ratowanie świata';
+   },
+};
+
+// dzięki zastosowaniu prototypu
+// oszczędzamy zasoby
+function Helicopter(name) {
+   this.name = name;
+   this.ammo = 2000;
+   this.rockets = 16;
+
+   this.attack = function () {
+      this.ammo -= 100;
+      this.rockets -= 2;
+
+      console.log(`
+            Helikopter: ${this.name} atakuje
+            Pozostało amunicji: ${this.ammo}
+            Pozostało rakiet: ${this.rockets}
+        `);
+   };
+}
+
+const army = [];
+for (let i = 0; i <= 1000000; i++) {
+   const heli = new Helicopter('Apache' + i);
+   army.push(heli);
+}
+// powyższy kod tworzy 1000000 obiektów
+// 1000000 właściwości name, ammo, rocket
+// oraz 1000000 metody attack
+// gdy attack zamieścimy w prototypie
+// to będzie występować tylko
+// w jednym nmiejscu w pamięci
+function Helicopter(name) {
+   this.name = name;
+   this.ammo = 2000;
+   this.rockets = 16;
+}
+
+Helicopter.prototype.attack = function () {
+   this.ammo -= 100;
+   this.rocket -= 2;
+
+   console.log(`
+        Helikopter: ${this.name} atakuje
+        Pozostało amunicji: ${this.ammo}
+        Pozostało rakiet: ${this.rockets}
+    `);
+};
+
+const army = [];
+for (let i = 0; i <= 1000000; i++) {
+   const heli = new Helicopter('Apache' + i);
+   army.push(heli);
+}
+
+army[0].__proto__ === Helicopter.prototype; //true
+army[500].__proto__ === Helicopter.prototype; //true
+army[999999].__proto__ === Helicopter.prototype; //true
+army[500].__proto__ === army[999999].__proto__; //true
 ```
 
 ### Rozszerzanie wbudowanych typów
 
 ```js
-// TODO
+// możemy także modyfikować prototyp
+// dla obiektów wbudowamych JS
+// jednak nie polaca się takiego kodowania
+String.prototype.firstCapital = function () {
+   return this[0].toUpperCase() + this.substr(1);
+};
+
+String.prototype.mixLetterSize = function () {
+   let text = '';
+
+   for (let i = 0; i < this.length; i++) {
+      text += i % 2 === 0 ? this[i].toUpperCase() : this[i].toLowerCase();
+   }
+
+   return text;
+};
+
+const text1 = 'marcin';
+console.log(text1.firstCapital()); //wypisze Marcin
+
+const text2 = 'marcin';
+console.log(text2.mixLetterSize()); //wypisze MaRcIn
 ```
 
 # Class
@@ -2806,29 +2968,225 @@ console.log(ob.pet.kind, ob2.pet.kind); //cat, pies
 ### Deklaracja klasy
 
 ```js
-// TODO
+// deklaracja klasy
+class Animal {
+   constructor() {}
+   method1() {}
+   method2() {}
+   method3() {}
+}
+
+//lub o wiele rzadziej spotykane
+const Animal = class {
+   constructor() {}
+   method1() {}
+   method2() {}
+   method3() {}
+};
+
+//tworzymy instancje tak samo jak poprzednio
+const pet1 = new Animal();
+const pet2 = new Animal();
+
+// class jest tylko innym zapisem
+// w tle to i tak funkcja
+class AnimalA {}
+console.log(typeof AnimalA); //function
+
+function AnimalB() {}
+console.log(typeof AnimalB); //function
 ```
 
 ### constructor()
 
 ```js
-// TODO
+// constructor() to funkcja odpalana automatycznie
+// przy tworzeniu instancji za pomocą new
+class Animal {
+   constructor(name, age) {
+      this.name = name;
+      this.age = age;
+   }
+
+   method1() {}
+   method2() {}
+   method3() {}
+}
+
+const animal = new Animal('pies', 8);
+
+// funkcja constructor() jest tym samym,
+// co używana w poprzednim zapisie
+// funkcja będąca konstruktorem
+function PersonFn(name, age) {
+   this.name = name;
+   this.age = age;
+}
+
+//w nowej składni ES6
+class PersonCl {
+   constructor(name, age) {
+      this.name = name;
+      this.age = age;
+   }
+}
 ```
 
 ### Dodawanie metod
 
 ```js
-// TODO
+// dodając nowe metody i właściwości
+// do prototypu danej klasy
+// nie musimy pamiętać o składni prototype.
+// wystarczy, że metody te umieścimy wewnątrz klasy
+// one automatycznie trafiają do prototypu
+class Animal {
+   constructor(name, age) {
+      this.name = name;
+      this.age = age;
+   }
+
+   eat() {
+      console.log(this.name + ' jem');
+   }
+
+   sleep() {
+      console.log(this.name + ' śpię');
+   }
+}
 ```
 
 ### Właściwości
 
 ```js
-// TODO
+// właściwości dla danej instancji
+// dodajemy wewnątrz konstruktora
+class Animal {
+   constructor(name) {
+      this.name = name;
+      this.legs = 4;
+      this.type = 'animal';
+   }
+}
+
+// w najnowszym JS uproszczono zapis
+// i można je definiować poza konstruktorem
+// równoznaczne z powyższym kodem
+class Animal {
+   legs = 4;
+   type = 'animal';
+
+   constructor(name) {
+      this.name = name;
+   }
+}
 ```
 
 ### Metody statyczne
 
 ```js
-// TODO
+// tworząc metody danej klasy
+// trafiają one do prototypu
+class Human {
+   constructor(name) {
+      this.name = name;
+   }
+
+   say() {
+      console.log('Jestem człowiek');
+   }
+}
+
+Human.say(); //błąd, bo say jest w prototypie
+Human.prototype.say(); //"Jestem człowiek"
+
+const ob = new Human('Marcin');
+ob.say(); //"Jestem człowiek"
+
+// metody możemy przypisywać do obiektów
+// ala tekże do instancji obiektu
+const ob = new Human('Marcin');
+ob.say(); //Jestem człowiek
+ob.eat = function () {
+   console.log('Jem śniadanie');
+};
+ob.prototype.eat(); //nie ma, bo tylko powyższa instancja ma tą metodę
+
+// metody statyczne  nie są dostępne
+// dla nowych instancji,
+// a tylko dla samych klas
+
+// przykład w ES5
+function Human {
+    this.name = name;
+}
+
+//metoda statyczna
+Human.create = function() {
+   console.log("Tworzę");
+}
+
+Human.prototype.say = function() {
+    console.log("Jestem człowiek");
+}
+
+const ob = new Human("Marcin");
+ob.create(); //błąd
+Human.create(); //"Tworzę"
+
+// przykład w ES6
+class Human {
+    constructor(name) {
+        this.name = name;
+    }
+
+    say() {
+        console.log("Jestem człowiek");
+    }
+
+    static create() {
+        console.log("Tworzę");
+    }
+}
+
+const ob = new Human("Marcin");
+ob.create(); //błąd
+Human.create(); //"Tworzę"
+
+// metody statyczne najczęściej wykorzystywane
+// są do tworzenia użytecznych funkcji
+// dla danej klasy. Można dzięki temu
+// pogrupować funkcjonalności
+// dotyczące danych klas w jednym miejscu
+class User {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    static compareByName(a, b) {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+    }
+
+    static compareByAge(a, b) {
+        return a.age - b.age;
+    }
+}
+
+const users = [
+    new User("Tomek", 10),
+    new User("Ania", 35),
+    new User("Beata", 20),
+    new User("Monika", 20),
+    new User("Karol", 22)
+];
+
+users.sort( User.compareByName );
+console.log( users[0].name ); // Ania
+
+users.sort( User.compareByAge );
+console.log( users[0].name ); // Tomek
+
 ```
