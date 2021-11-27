@@ -3219,12 +3219,6 @@ console.log( users[0].name ); // Tomek
 // TODO
 ```
 
-### instanceof
-
-```js
-// TODO
-```
-
 # Class dziedziczenie
 
 ### extends
