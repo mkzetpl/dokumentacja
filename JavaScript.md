@@ -2777,6 +2777,8 @@ console.log(ob.pet.kind, ob2.pet.kind); //cat, pies
 // TODO
 ```
 
+# Konstruktor
+
 ### Tworzenie konstruktora
 
 ```js
