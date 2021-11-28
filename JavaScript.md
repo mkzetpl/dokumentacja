@@ -3790,18 +3790,60 @@ div[data-type="error"] {
 }
 ```
 
-## Relacje między węzłami
+## Relacje między elementami
 
 ### Relacje między węzłami
 
 ```js
-// TODO
+// przykładowy html
+<div class='test-cnt'>
+   <p id='text'>
+      Mała
+      <strong style='color:red'>Ala</strong>
+      miała
+      <span style='color:blue'>kota</span>
+   </p>
+</div>;
+
+// poruszanie się po elementach
+const p = document.querySelector('p');
+
+//właściwości pobierające elementy html
+p.parentElement; //wskazuje na nadrzędny element - div.test-cnt
+p.firstElementChild; //pierwszy element w #text
+p.lastElementChild; //ostatni element w #text
+p.children; //[strong, span] - kolekcja dzieci elementu #text
+p.children[0]; //wskazuje na 1 element - <strong style="color:red">Ala</strong>
+p.nextElementSibling; //następny brat-element
+p.previousElementSibling; //poprzedni brat-element
+
+//właściwości pobierające węzły
+p.parentNode; //wskazuje na nadrzędny węzeł - div.test-cnt
+p.firstChild; //pierwszy node - w naszym przypadku to tekst "Mała "
+p.lastChild; //ostatni node - "" - html jest sformatowany, wiec ostatnim nodem jest znak nowej linii
+p.childNodes; //[text, strong, text, span] - kolekcja wszystkich dzieci - nodów
+p.childNodes[0]; //"Mała"
+p.nextSibling; //następny węzeł
+p.previousSibling; //poprzedni węzeł
 ```
 
 ### Funkcja closest
 
 ```js
-// TODO
+// element.closest("selektor-css") idąc w górę drzewa
+// odnajduje najbliższy element który pasuje do selektora
+<div class='module'>
+   <div class='module-content'>
+      <div>
+         <button class='button'>Kliknij</button>
+      </div>
+   </div>
+</div>;
+
+const btn = document.querySelector('.button');
+btn.addEventListener('click', (e) => {
+   const module = btn.closest('.module');
+});
 ```
 
 ## Tworzenie i usuwanie elementów
@@ -3809,49 +3851,226 @@ div[data-type="error"] {
 ### Tworzenie elementu
 
 ```js
-// TODO
+// document.createElement(tagname)
+const el = document.createElement('div');
+
+el.classList.add('element');
+el.style.background = `red`;
+el.style.color = '#333';
+el.innerText = 'jakiś text';
 ```
 
 ### Wstawianie elementu do HTML
 
 ```js
-// TODO
+// parentElement.appendChild(newElement)
+// wstawi  na koniec wybranego elementu
+let counter = 0;
+
+const el = document.createElement('div');
+el.classList.add('element');
+el.style.background = `hsl(${Math.random() * 360}, 90%, 70%)`;
+el.style.color = '#333';
+el.innerText = `Nowy ${++counter}`;
+
+const div = document.querySelector('.test-cnt');
+div.appendChild(el);
+
+// parentElement.insertBefore(newElement, element)
+// wstawia nowy element przed wskazany element
+<div class='test-cnt'>
+   <strong>strong</strong>
+   <strong>strong</strong>
+</div>;
+
+let counter = 0;
+
+const el = document.createElement('div');
+el.classList.add('element');
+el.style.background = `hsl(${Math.random() * 360}, 90%, 70%)`;
+el.style.color = '#333';
+el.innerText = `Nowy ${++counter}`;
+
+const div = document.querySelector('.test-cnt');
+const strong = div.querySelectorAll('strong')[1]; //pobieram 2 strong
+
+div.insertBefore(el, strong);
+
+//  jeśli nie wspieramy  IE11
+//  można używać:
+// poniższych można użyać też do tekstów
+parentElement.append(newElement); // wstawia tekst lub nowy element na koniec danego elementu
+parentElement.prepend(newElement); // 	wstawia tekst lub nowy element na początku danego elementu
+parentElement.before(newElement); // wstawia tekst lub nowy element przed danym elementem
+parentElement.after(newElement); // wstawia tekst lub nowy element za danym elementem
 ```
 
 ### Tworzenie tekstu za pomocą createTextNode
 
 ```js
-// TODO
+// mozna za pomocą: innerText/textContent/innerHTML/outerHTML
+// lub: createTextNode - tworzy pojedynczy węzeł tekstowy
+const p = document.querySelector('#testNodeText');
+const btn = document.querySelector('.btn-textNodeTest');
+
+const word1 = document.createTextNode('Psy'); //pierwsze słowo
+p.append(word1);
+
+p.append(' są '); //nie potrzebujemy tutaj referencji
+
+const word2 = document.createTextNode('fajne'); //ostatnie słowo
+p.append(word2);
+
+btn.addEventListener('click', () => {
+   console.dir(word1); //wypiszemy sobie by zobaczyć co możemy użyć
+   word1.textContent = 'Koty też';
+   word2.textContent = 'super!';
+});
 ```
 
 ### insertAdjacentHTML i insertAdjacentElement
 
 ```js
-// TODO
+// parent.insertAdjacentHTML(position, html)
+// wstawia kawałek HTML na wybranej pozycji
+// position może być:
+beforebegin; // wstawia element przed docelowym elementem
+afterbegin; // wstawia element na początku dzieci
+beforeend; // wstawia element na końcu dzieci
+afterend; // wstawia element za docelowym elementem
+
+const parent = document.querySelector('div');
+
+parent.insertAdjacentHTML('beforebegin', '<strong>element 1</strong>');
+parent.insertAdjacentHTML('afterbegin', '<strong>element 2</strong>');
+parent.insertAdjacentHTML('beforeend', '<strong>element 3</strong>');
+parent.insertAdjacentHTML('afterend', '<strong>element 4</strong>');
+
+// parent.insertAdjacentElement(position, newEl)
+// stawia nowy element na wybranej pozycji
+const parent = document.querySelector('div');
+
+const el = document.createElement('strong');
+parent.insertAdjacentElement('beforebegin', el);
+
+//  takie samo działanie mają metody
+// append(), prepend(), before() i after()
 ```
 
 ### Klonowanie elementów
 
 ```js
-// TODO
+// cloneNode(deep)
+// deep oznacza, czy dany element
+// ma być klonowany wraz ze swoimi dziećmi
+<div class='to-clone'>
+   <strong>Testowy</strong>
+</div>;
+
+const el = document.querySelector('.to-clone');
+
+const cloneEl1 = el.cloneNode();
+console.log(cloneEl1); //<div class="to-clone"></div>
+
+const cloneEl2 = el.cloneNode(true);
+console.log(cloneEl2); //<div class="to-clone"><strong>Testowy</strong></div>
+
+// cloneNode() nie klonuje
+// podpiętych zdarzeń tylko sam HTML
 ```
 
 ### Usuwanie elementów
 
 ```js
-// TODO
+// parentElement.removeChild(element)
+// element.remove() - gdy nie interesuje nas IE11
+<div class='div-test-remove'>
+   <span>Element do usunięcia</span>
+</div>;
+
+const div = document.querySelector('div');
+const el = div.querySelector('span');
+const btn = document.querySelector('button');
+
+btn.addEventListener('click', (e) => {
+   parent.removeChild(el);
+
+   //lub
+   el.parentElement.removeChild(el);
+
+   //lub najprościej
+   el.remove();
+});
+
+// aby usunąć wszystkie dzieci danego elementu
+const ul = document.querySelector('#list');
+
+while (ul.firstChild) {
+   ul.removeChild(ul.firstChild); //lub div.firstChild.remove()
+}
+
+// for robimy od końca
+// ponieważ po usunięciu danego elementu,
+// przestawi nam się indeks w kolekcji
+const li = document.querySelectorAll('#list li');
+for (let i = li.length - 1; i <= 0; i++) {
+   li[i].remove();
+}
+
+// powyższe sprawdza się tylko
+// coś zrobić z usuniętymi elementami
+// np odpiąć im zdarzenia
+// bo można prościej
+const ul = document.querySelector('#list');
+//dowolne z poniższych
+ul.innerHTML = '';
+ul.textContent = '';
+ul.innerHTML = '';
 ```
 
 ### Usuwanie z html i pamięć
 
 ```js
-// TODO
+// ????????????????????
+// removeChild() i remove()
+// usuwają elementy z HTML, ale jeżeli
+// taki element jest podstawiony pod zmienną,
+// po usunięciu dalej będzie ona
+// przetrzymywać dany element w pamięci.
 ```
 
 ### Zastępowanie elementów
 
 ```js
-// TODO
+// parent.replaceChild(newChild, oldChild)
+<div class="div-test-replace">
+    <span>Jestem starym elementem</span>
+</div>
+
+<button type="button" class="button" id="replaceTest">
+    Zastąp spana nowym elementem
+</button>
+
+const div = document.querySelector(".div-test-replace")
+const btn = document.querySelector("#replaceTest");
+
+btn.addEventListener("click", e => {
+    const oldItem = div.querySelector("span");
+
+    const newItem = document.createElement("strong");
+    newItem.innerText = "Jestem nowym elementem";
+
+    div.replaceChild(newItem, oldItem);
+});
+
+// inną do zastąpienia jest
+// element.replaceWith(otherEl)
+const span = document.querySelector(".old");
+
+const strong = document.createElement("strong");
+strong.innerText = "Zamiennik";
+
+span.replaceWith(strong);
 ```
 
 ### Tworzenie fragmentów dokumentu za pomocą template
@@ -3860,30 +4079,88 @@ div[data-type="error"] {
 // TODO
 ```
 
-## CSS i Javascript
+## CSS i Javascript - CSSOM (The CSS Object Model)
 
 ### classList
 
 ```js
-// TODO
+// element.classList() udostępnia nam kilka metod
+add(string); // dodawanie klasy lub kilku klas
+remove(string); // usuwanie klasy lub kilku klas
+toggle(string, *force); // przełączanie (jak nie ma to dodaje, jak jest to usuwa) klasy. Dodatkowy drugi parametr wymusza dodanie (jeżeli jest true) lub usunięcie (jeżeli jest false) klasy.
+contains(string); // sprawdza czy element ma taką klasę
+
+el.classList.add("btn");
+el.classList.add("btn", "btn-primary", "inna-klasa");
+el.classList.remove("btn", "inna-klasa");
+el.classList.toggle("btn"); //dodaję jak nie ma, usuwam jak już jest
+el.classList.toggle("btn", true); //dodaję
+el.classList.contains("btn"); //true bo powyżej dodałem tą klasę
+
+// className
+element.className = "button button-big button-important";
+element.className += " inna-klasa inna-klasa2";
 ```
 
 ### style
 
 ```js
-// TODO
+btn.style.backgroundColor = '#4BA2EA';
+btn.style.fontSize = '1.6rem';
+btn.style.borderRadius = '3rem';
+btn.style.color = '#F7F781';
+
+console.log('Kolor przycisku to: ', btn.style.backgroundColor);
+console.log('Kolor tekstu to: ', btn.style.color);
+console.log('A wielkość tekstu to: ', btn.style.fontSize);
+
+//lub
+el.style['font-size'] = '1rem';
+el.style['background'] = 'linear-gradient(#fff, #ddd)';
+el.style['background-color'] = 'rgba(255,255,255,0.5)';
+
+// cssText
+el.style.cssText = `
+    color: red;
+    background: blue;
+    padding: 10px;
+`;
 ```
 
 ### getComputedStyle()
 
-```// TODOjs
-
+```js
+// TODO
 ```
 
 ### setProperty() i getPropertyValue()
 
 ```js
-// TODO
+// setProperty(propertyName, value, priority*)
+// służy do ustawiania stylowania. Ostatni
+// opcjonalny parametr priority służy do
+// ewentualnego dodania deklaracji !important.
+// Najczęściej jest pomijany.
+
+// getPropertyValue(property)
+// służy do pobierania stylowania
+document.body.style.setProperty('background-color', '#4BA2EA');
+document.body.style.setProperty('font-size', '1.5rem');
+
+document.body.style.getProperty('background-color');
+document.body.style.getProperty('font-size');
+
+// Metody te mają jednak zastosowanie
+// przy pracy ze zmiennymi css
+el.style.setProperty('--size', '1em');
+el.style.getPropertyValue('--size'); //"1em"
+
+// a jeżeli połączymy to z pobieraniem
+// przeliczonych styli, zmienne takie stają
+// się swoistą furtką, która może
+// łączyć css z Javascriptem
+const size = getComputedStyle(element).getPropertyValue('--size');
+element.setProperty('--size:', `{++size}`);
 ```
 
 ## Zdarzenia - Events
@@ -3891,55 +4168,293 @@ div[data-type="error"] {
 ### Nasłuchiwanie zdarzeń
 
 ```js
-// TODO
-```
+//możemy podpiąć klasyczną funkcję anonimową
+const btn = document.querySelector('.button');
 
-### Ten element
+btn.addEventListener('click', function () {
+   console.log('Kliknąłem na element A');
+});
 
-```js
-// TODO
+//lub funkcję strzałkową
+const btn = document.querySelector('.button');
+btn.addEventListener('click', () => {
+   console.log('Kliknąłem na element B');
+});
+
+//lub podpiąć funkcję poprzez referencję do niej
+function showText() {
+   console.log('Kliknąłem na element C');
+}
+
+const btn = document.querySelector('.button');
+btn.addEventListener('click', showText);
+
+// odpięcie nasłuchiwania zdarzenia
+// element.removeEventListener()
+const btn = document.querySelector('.button');
+
+function elementClick() {
+   console.log('Kliknąłem na element');
+}
+
+btn.addEventListener('click', elementClick);
+btn.removeEventListener('click', elementClick);
 ```
 
 ### Wkraczamy w głąb zdarzenia
 
 ```js
-// TODO
+// funkcji nasłuchującej możemy ustawić parametr
+// najczęściej stosowane e lub event
+// jest to dodatkowy obiekt z informacjami
+// związanymi z tym zdarzeniem
+// np pozycja kursora, który klawisz wciśnięty itp
+element.addEventListener('click', (e) => {
+   console.log(e);
+});
 ```
 
 ### Wstrzymanie domyślnej akcji
 
 ```js
-// TODO
+// iektóre elementy na stronie
+// mają swoje domyślne akcje
+// e.preventDefault() - zpobiega wykonaniu domyślnej akcji
+//jeżeli chcemy robić walidację formularzy
+form.addEventListener('submit', (e) => {
+   e.preventDefault();
+   console.log('ten formularz się nie wyśle');
+});
+
+//jeżeli chcemy kombinować z tym co wpisuje użytkownik
+input.addEventListener('keydown', (e) => {
+   e.preventDefault();
+   console.log('w ten input nic nie wpiszesz');
+});
+
+//jeżeli chcemy robić bajerancką nawigację
+link.addEventListener('click', (e) => {
+   e.preventDefault();
+   console.log('Ten link nigdzie nie przeniesie.');
+});
 ```
 
 ### Zachowanie zdarzeń
 
 ```js
-// TODO
+// faza capture - kiedy event podąża w dół drzewa
+// faza target - kiedy event dotrze do elementu, który wywołał to zdarzenie
+// faza bubbling - kiedy event pnie się w górę drzewa aż dotrze do window
+btn.addEventListener("click", e => {...}, true); //capturing
+btn.addEventListener("click", e => {...}); //bubbling
+
+// można przekazać także obiekt
+// z kilkoma własnościami
+element.addEventListener("click", doSomething, {
+    capture: false, //czy używać fazy capture
+    once: true, //po pierwszym odpaleniu nasłuchiwanie zostanie usunięte - czyli dane nasłuchiwanie zadziała tylko 1x
+    passive: false //jeżeli true, funkcja nigdy nie odpali preventDefault() nawet jeżeli podano je w funkcji
+    signal : //pozwala dodać obiekt typu AbortController, dzięki któremu dana funkcja zostanie automatycznie usunięta w momencie wywołania funkcji abort()
+});
 ```
 
 ### Zatrzymanie propagacji
 
 ```js
-// TODO
+// aby przerwać powyższą wędrówkę (propagację)
+// używamy e.stopPropagation()
+<div class='parent'>
+   <button class='button'>Kliknij mnie i sprawdź w konsoli</button>
+</div>;
+
+const div = document.querySelector('.parent');
+const btn = document.querySelector('.parent .button');
+
+div.addEventListener('click', (e) => {
+   console.log('Kliknięto div');
+});
+
+btn.addEventListener('click', (e) => {
+   e.stopPropagation();
+   console.log('Kliknięto przycisk');
+});
+
+//stopImmediatePropagation()
+// działa jak powyższa ale dodatkowo
+// zatrzyma wywołanie reszty funkcji
+// nasłuchujących dany rodzaj zdarzenia.
+// poniżej różnice
+
+// stopPropagation()
+divGrandfather.addEventListener('click', (e) => {
+   console.log('Kliknąłeś na grandfather');
+});
+
+divParent.addEventListener('click', (e) => {
+   e.stopPropagation();
+   console.log('Kliknąłeś na parent A');
+});
+
+divParent.addEventListener('click', (e) => {
+   console.log('Kliknąłeś na parent B');
+});
+
+divParent.addEventListener('click', (e) => {
+   console.log('Kliknąłeś na parent C');
+});
+
+button.addEventListener('click', (e) => {
+   console.log('Kliknąłeś na button');
+});
+
+// WYNIK NA KONSOLI:
+// Kliknąłeś na button
+// Kliknąłeś na parent A
+// Kliknąłeś na parent B
+// Kliknąłeś na parent C
+
+// stopImmediatePropagation()
+divG.addEventListener('click', (e) => {
+   console.log('Kliknąłeś na grandfather');
+});
+
+divP.addEventListener('click', (e) => {
+   e.stopImmediatePropagation();
+   console.log('Kliknąłeś na parent A');
+});
+
+divP.addEventListener('click', (e) => {
+   console.log('Kliknąłeś na parent B');
+});
+
+divP.addEventListener('click', (e) => {
+   console.log('Kliknąłeś na parent C');
+});
+
+button.addEventListener('click', (e) => {
+   console.log('Kliknąłeś na button');
+});
+
+// WYNIK NA KONSOLI:
+// Kliknąłeś na button
+// Kliknąłeś na parent A
 ```
 
 ### Element nasłuchujący i ten, na którym odpalono zdarzenie
 
 ```js
-// TODO
+//  e.target wskazuje na element,
+// na którym dane zdarzenie się wydarzyło
+// e.currentTarget wskazuje na element,
+// do którego podpięliśmy funkcję
+// nasłuchującą dane zdarzenie.
+
+<div class='parent' id='parentTarget'>
+   <button class='button' type='button'>
+      Test targeta
+   </button>
+</div>;
+
+const parent = document.querySelector('.parent');
+parent.addEventListener('click', (e) => {
+   console.log('e.target: ', e.target);
+   console.log('e.currentTarget: ', e.currentTarget, parent);
+});
 ```
 
 ### Problem ze zdarzeniami i dynamicznymi elementami
 
 ```js
-// TODO
+// zdarzenie do dynamicznie tworzonego elementu
+// musimy podpinać przy dodawaniu tego elementu
+
+
+<div class="elements-list">
+    <!-- tutaj trafią nowe elementy -->
+</div>
+
+<div class="add-element-bar">
+    <button type="button" class="btn add-element">
+        Dodaj element
+    </button>
+</div>
+
+// dzialajacy kod
+let counter = 0;
+const addBtn = document.querySelector(".add-element");
+const list = document.querySelector(".elements-list");
+
+
+addBtn.addEventListener("click", e => {
+    counter++;
+    const el = document.createElement("div");
+    el.classList.add("element");
+    el.innerText = "To jest element " + counter;
+
+    const del = document.createElement("button");
+    del.innerText = "Usuń";
+    del.classList.add("delete");
+    del.addEventListener("click", e => {
+        del.closest(".element").remove();
+    });
+    el.appendChild(del);
+
+    list.appendChild(el);
+});
+
+// problem z powyższym jest taki że
+// Jeżeli będziemy mieli milion takich elementów,
+// to podepniemy milion funkcji nasłuchujących
+// dlatego zamiast podpinać zdarzenie usunięcia
+// pod przycisk podepniemy się pod rodzica
+// i za pomocą e.target wewnątrz funkcji
+// będziemy sprawdzać jaki element został kliknięty
+
+list.addEventListener("click", e => {
+    //e.target - ten który kliknęliśmy
+    //e.currentTarget - ten któremu podpięliśmy addEventListener (czyli list)
+
+    //sprawdzam czy kliknięty element jest przyciskiem i ma klasę .delete
+    if (e.target.classList.contains("delete")) {
+        e.target.closest(".element").remove();
+    }
+});
+
 ```
 
 ### Inne sposoby rejestrowania zdarzeń
 
 ```js
-// TODO
+const element = document.querySelector('#button');
+
+element.onclick = function () {
+   console.log('Kliknięto element');
+};
+
+element.onmouseover = function () {
+   console.log('Najechano na przycisk');
+};
+
+// aby usunąć wcześniej przypisane
+// w ten sposób zdarzenie
+element.onclick = null;
+
+// problem z powyższym sposobem polega na tym,
+// że do jednego elementu dla pojedynczego
+// zdarzenia możemy podpiąć tylko jedną funkcję
+
+// nie zawsze jest to problem
+// często można założyć, że nie będzie
+// potrzeby podpinać dodatkowych
+// funkcjonalności dla danego elementu np:
+const xhr = new XMLHttpRequest();
+xhr.onload = function() { ... }
+xhr.onerror = function() { ... }
+xhr.send(null);
+
+const form = document.querySelector("form");
+form.onsubmit = function() { ... }
+
 ```
 
 ## Events - klawisze
@@ -3947,25 +4462,60 @@ div[data-type="error"] {
 ### keyDown, keyUp, keyPress
 
 ```js
-// TODO
-```
-
-### Input
-
-```js
-// TODO
+keyDown; //naciśnięcie klawisza
+keyUp; //puszczenie klawisza
+keyPress; //naciśnięcie i puszczenie klawisza
 ```
 
 ### Który klawisz został naciśnięty
 
 ```js
-// TODO
+e.altKey; // Czy klawisz Alt jest naciśnięty
+e.ctrlKey; // Czy klawisz Ctrl jest naciśnięty
+e.shiftKey; // Czy klawisz Shift jest naciśnięty
+e.keyCode; // Zwraca kod klawisza
+
+const textarea = document.querySelector('#keyTest');
+
+textarea.addEventListener('keyup', (e) => {
+   const keys = [];
+
+   if (e.shiftKey) {
+      keys.push('shift');
+   }
+   if (e.altKey) {
+      keys.push('alt');
+   }
+   if (e.ctrlKey) {
+      keys.push('ctrl');
+   }
+   keys.push(e.key);
+
+   console.log('Naciśnięte klawisze: ' + keys.join(' + '));
+
+   if (e.keyCode >= 48 && e.keyCode <= 57) {
+      console.log('klawisz to cyfra');
+   }
+});
 ```
 
 ### Blokowanie wpisywania
 
 ```js
-// TODO
+// ustawiamy wpisywanie tylko liczb
+const input = document.querySelector('input');
+
+input.addEventListener('beforeinput', (e) => {
+   e.currentTarget.previousValue = e.currentTarget.value;
+});
+
+input.addEventListener('input', (e) => {
+   if (/^\d*$/g.test(e.currentTarget.value)) {
+      //tylko liczby
+   } else {
+      e.currentTarget.value = e.currentTarget.previousValue;
+   }
+});
 ```
 
 ## Events - myszka
