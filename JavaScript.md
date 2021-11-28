@@ -3530,31 +3530,137 @@ console.log(txt.mix()); //LuBiE KoTy i pSy
 ### Pobieranie elementów
 
 ```js
-// TODO
+// querySelector() zwraca pierwszy
+// pasujący do selektora element, lub null
+//jak nic nie znajdzie
+//pobieramy pierwszy element .btn-primary
+const btn = document.querySelector('.btn-primary');
+
+//pobieramy pierwsze li listy ul
+const li = document.querySelector('ul li');
+
+//pobieram element, który ma id module
+const module = document.querySelector('#module');
+
+//  querySelectorAll() zwraca kolejcję elementów
+// lub pustą kolekcję jeśli nic nie znajdzie
+const buttons = document.querySelectorAll('.button');
+
+for (const btn of buttons) {
+   console.log(btn);
+}
+
+// metody te możemy odpalać dla całego dokumentu
+// lub dla każdego elementu z osobna
+// w całym dokumencie:
+const buttons = document.querySelectorAll('.button');
+
+// w .module
+const module = document.querySelector('.module');
+const buttons = module.querySelectorAll('.button');
+
+// inne metody mniej zalecane
+getElementById('id'); // pobiera jeden element o danym id
+getElementsByTagName('tag-name'); // pobiera elementy o danym znaczniku
+getElementsByClassName('class-name'); // 	pobiera elementy o danej klasie
+getElementsByName('name'); // pobiera elementy o danym atrybucie name
 ```
 
 ### Pętle po kolejkach
 
 ```js
-// TODO
+const elements = document.querySelectorAll('.module');
+elements.style.color = 'red'; //błąd - bo to kolekcja
+elements[0].style.color = 'red'; //ok bo pierwszy element w kolekcji
+
+//ok, bo robimy pętlę
+for (const el of elements) {
+   el.style.color = 'red';
+}
+// w powyższym nie możemy używać metod przeznaczonych
+// dla tablic ponieważ kolekcje przypominają tablice
+// ale nimi nie są
+const elements = document.querySelectorAll('.module');
+elements.map((el) => (el.style.color = 'red')); //błąd - map jest dla tablic
+
+// powyższe można pobejść konwertując
+// kolekcję na tablicę używając
+//  spread syntax lub Array.from()
+onst buttons = document.querySelectorAll("button");
+[...buttons].map(el => el.style.color = "red");
+
+// wyjątkiem jest forEach którą możemy
+// użuywać dla kolekcji
+const elements = document.querySelectorAll(".module");
+
+elements.forEach(el => {
+    el.style.color = "blue"
+});
 ```
 
 ### Gotowe kolekcje
 
 ```js
-// TODO
+document.body; //element body
+document.all; //kolekcja ze wszystkimi elementami na stronie
+document.forms; //kolekcja z formularzami na stronie
+document.images; //kolekcja z grafikami img na stronie
+document.links; //kolekcja z linkami na stronie
+document.anchors; //kolekcja z linkami będącymi kotwicami
+// i inne
 ```
 
 ### Żywe kolekcje
 
 ```js
-// TODO
+// poniższe zwracają kolekcję NodeList
+querySelector();
+querySelectorAll();
+
+// poniższe zwracają kolekcję HTMLCollection
+getElementsByTagName();
+getElementById();
+getElementsByClassName();
+getElementsByName();
+
+// NodeList i HTMLCollection
+
+// HTMLCollection:
+// nie pozwalają używać forEach();
+// chyba że zamienimy je na tablice
+// oraz zawierają żywe kolelcje
+// tzn. np. gdy pobieramy spany w danym elemencie
+// i jeśli w przyszłości liczba tych spanów się zmieni
+// (dojdą nowe lub zostaną usunięte)
+// kolekcja getElementsByTagName zmieni się
+// kolekcja NodeList będzie jak w momencie pobrania
 ```
 
 ### Selektor :scope
 
 ```js
-// TODO
+// jeżeli chcemy by działanie selektorów
+// odbywało się od danego rodzica
+// (tutaj .module) musimy użyć
+// specjalnego selektora :scope
+<div class="module">
+    <div data-id="one">
+        <div data-id="two"> <!-- tego chcemy złapać -->
+        </div>
+    </div>
+</div>
+
+const module = document.querySelector(".module");
+
+const divTwo = module.querySelector("div div");
+console.log(divTwo); //<div data-id="one"></div>
+
+// używając :scope
+const module = document.querySelector(".module");
+const divTwo = module.querySelector(":scope div div");
+console.log(divTwo); //<div data-id="two"></div>
+
+
 ```
 
 ## Właściwości elementów
@@ -3562,34 +3668,339 @@ console.log(txt.mix()); //LuBiE KoTy i pSy
 ### innerHTML i outerHTML
 
 ```js
-// TODO
+// innerHTML umożliwia odczyt i ustawianie html,
+// we wnętrzu danego elementu
+<button class='button'>
+   <span>Kliknij mnie</span>
+</button>;
+
+const btn = document.querySelector('.button');
+console.log(btn.innerHTML); //<span>Kliknij mnie</span>
+btn.innerHTML = '<span>Nie klikaj mnie!</span>';
+
+// outerHTML
+const btn = document.querySelector('.button');
+console.log(btn.outerHTML); // <button class="button"> <span>Kliknij mnie</span></button>
 ```
 
 ### innerText i textContent
 
 ```js
-// TODO
+// zwracają lub ustawiają sam tekst (bez znaczników HTML)
+// innerText działa na sparsowanym tekście
+// textContent na oryginalnym, wpisanym do pliku HTML
+const btn = document.querySelector('.btn');
+console.log(btn.innerHTML); //<span>Kliknij mnie</span>
+console.log(btn.innerText); ///"Kliknij mnie"
+console.log(btn.textContent); //"Kliknij mnie"
+
+// przy dodoawaniu tekstu
+// textContent - wstawi  elementu w oryginalnej postaci
+// innerText - automatycznie doda nam <br>
 ```
 
 ### tagName
 
 ```js
-// TODO
+// tagName zwraca nazwę elementu np. h2, a, p itp
+<button class='button'>
+   <span>Kliknij mnie</span>
+</button>;
+
+const btn = document.querySelector('.button');
+console.log(btn.tagName); // BUTTON
+
+// przydatne np w:
+const elements = document.querySelectorAll('body *');
+for (const el of elements) {
+   if (el.tagName === 'STRONG') {
+      el.style.border = '1px solid red';
+   }
+}
 ```
 
 ### Praca z atrybutami
 
 ```js
-// TODO
+el.getAttribute(name); // pobiera wartość danego atrybutu null jak nie ma
+el.setAttribute(name, value); // ustawia nową wartość atrybutu
+el.hasAttribute(name); // sprawdza czy ma atrybut: zwraca true lub false
+el.removeAttribute(name); // usuwa atrybut o danej nazwie
+el.toggleAttribute(name); // dodaje/usuwa dany atrybut
+
+// przykład
+<a href='http://google.pl'> Wyszukaj </a>;
+const link = document.querySelector('a');
+
+const href = link.getAttribute('href'); //"http://google.pl"
+const target = link.getAttribute('target'); //null
+
+link.setAttribute('target', '_blank');
+if (link.hasAttribute('target')) {
+   console.log(link.getAttribute('target')); //"_blank"
+}
 ```
 
 ### dataset
 
 ```js
+// atrybuty dziellimy na standardowe:
+// src, alt, title, class itp.
+// oraz na własne
+// data-text, data-direction
+<div
+   class='module'
+   data-type='important'
+   data-position='top'
+   data-my-custom-data='Przykładowy tekst'
+></div>;
+
+const tooltip = document.querySelector('.module');
+
+console.log(tooltip.dataset.type); //"important"
+console.log(tooltip.dataset.position); //"top"
+console.log(tooltip.dataset.myCustomData); //"Przykładowy tekst"
+
+// przy podawaniu nazwy danego
+// atrybutu pomijamy początek data-
+// a myślniki w nazwie zamieniamy
+// na zapis camelCase
+tooltip.dataset.myCustomData = 'nowa wartość'; //utworzy w elemencie atrybut data-my-custom-data="nowa wartość"
+tooltip.dataset.style = 'primary'; //utworzy atrybut data-style="primary"
+tooltip.dataset.moduleSize = 'big'; //utworzy atrybut data-module-size="big"
+
+//to samo możemy uzyskać za pomocą getAttribute i setAttribute
+tooltip.setAttribute('data-custom-data', 'nowa wartość');
+tooltip.setAttribute('data-style', 'primary');
+tooltip.setAttribute('data-module-size', 'big');
+
+// cokolwiek byśmy nie przetrzymywali
+// w dataset, staje się to tekstem
+<div data-nr1='16' data-nr2='30'></div>;
+console.log(typeof div.dataset.nr1, typeof div.dataset.nr2); //"string", "string"
+console.log(div.dataset.nr1 + div.dataset.nr2); //"1630"
+
+// idealnie nadają się więc do przechowywania
+// tekstów dynamicznie wstawianych
+// na stronę, kawałków html,
+div.dataset.type = "error";
+
+div[data-type="error"] {
+    color: red;
+}
+```
+
+## Relacje między węzłami
+
+### Relacje między węzłami
+
+```js
 // TODO
 ```
 
-### Atrybuty i właściwości
+### Funkcja closest
+
+```js
+// TODO
+```
+
+## Tworzenie i usuwanie elementów
+
+### Tworzenie elementu
+
+```js
+// TODO
+```
+
+### Wstawianie elementu do HTML
+
+```js
+// TODO
+```
+
+### Tworzenie tekstu za pomocą createTextNode
+
+```js
+// TODO
+```
+
+### insertAdjacentHTML i insertAdjacentElement
+
+```js
+// TODO
+```
+
+### Klonowanie elementów
+
+```js
+// TODO
+```
+
+### Usuwanie elementów
+
+```js
+// TODO
+```
+
+### Usuwanie z html i pamięć
+
+```js
+// TODO
+```
+
+### Zastępowanie elementów
+
+```js
+// TODO
+```
+
+### Tworzenie fragmentów dokumentu za pomocą template
+
+```js
+// TODO
+```
+
+## CSS i Javascript
+
+### classList
+
+```js
+// TODO
+```
+
+### style
+
+```js
+// TODO
+```
+
+### getComputedStyle()
+
+```// TODOjs
+
+```
+
+### setProperty() i getPropertyValue()
+
+```js
+// TODO
+```
+
+## Zdarzenia - Events
+
+### Nasłuchiwanie zdarzeń
+
+```js
+// TODO
+```
+
+### Ten element
+
+```js
+// TODO
+```
+
+### Wkraczamy w głąb zdarzenia
+
+```js
+// TODO
+```
+
+### Wstrzymanie domyślnej akcji
+
+```js
+// TODO
+```
+
+### Zachowanie zdarzeń
+
+```js
+// TODO
+```
+
+### Zatrzymanie propagacji
+
+```js
+// TODO
+```
+
+### Element nasłuchujący i ten, na którym odpalono zdarzenie
+
+```js
+// TODO
+```
+
+### Problem ze zdarzeniami i dynamicznymi elementami
+
+```js
+// TODO
+```
+
+### Inne sposoby rejestrowania zdarzeń
+
+```js
+// TODO
+```
+
+## Events - klawisze
+
+### keyDown, keyUp, keyPress
+
+```js
+// TODO
+```
+
+### Input
+
+```js
+// TODO
+```
+
+### Który klawisz został naciśnięty
+
+```js
+// TODO
+```
+
+### Blokowanie wpisywania
+
+```js
+// TODO
+```
+
+## Events - myszka
+
+### mousedown, mouseup, click
+
+```js
+// TODO
+```
+
+### mouseover, mousemove, mouseout
+
+```js
+// TODO
+```
+
+### mouseenter, mouseleave
+
+```js
+// TODO
+```
+
+### Dodatkowe informacje
+
+```js
+// TODO
+```
+
+### Pozycja kursora
+
+```js
+// TODO
+```
+
+### Który przycisk myszki
 
 ```js
 // TODO
