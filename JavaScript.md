@@ -2771,6 +2771,12 @@ console.log(ob.pet.name, ob2.pet.name); //Feliks, Super Szamson
 console.log(ob.pet.kind, ob2.pet.kind); //cat, pies
 ```
 
+### Map i Set
+
+```js
+// TODO ---------------------------------------   Map i Set
+```
+
 ### Dziedziczenie w JS
 
 ```js
@@ -4523,35 +4529,114 @@ input.addEventListener('input', (e) => {
 ### mousedown, mouseup, click
 
 ```js
-// TODO
+element.addEventListener("mousedown", e => {...});
+element.addEventListener("mouseup", e => {...});
+element.addEventListener("click", e => {...});
 ```
 
 ### mouseover, mousemove, mouseout
 
 ```js
-// TODO
+element.addEventListener("mouseover", e => {...});
+element.addEventListener("mousemove", e => {...});
+element.addEventListener("mouseout", e => {...});
 ```
 
 ### mouseenter, mouseleave
 
 ```js
-// TODO
+// różnią się one tym od swoich braci,
+// że nie są odpalane dla dzieci danego elementu
+element.addEventListener("mouseenter", e => {...});
+element.addEventListener("mouseleave", e => {...});
 ```
 
 ### Dodatkowe informacje
 
 ```js
-// TODO
+// aby pobrać dodatkowe informacje o zaistniałym zdarzeniu
+const element = document.querySelector('.element');
+element.addEventListener('click', (e) => {
+   console.log(e); //MouseEvent
+});
 ```
 
 ### Pozycja kursora
 
 ```js
-// TODO
+e.pageX  e.pageY; // pozycja X, Y kursora od górnego lewego narożnika strony
+e.clientX e.clientY; // pozycję X, Y kursora od lewej krawędzi widocznego obszaru strony (bez uwzględnienia pozycji przewinięcia strony)
+e.screenX e.screenY; // Zwraca pozycję X, Y na ekranie monitora (jeżeli masz wiele ekranów to od lewego górnego rogu ekranu leżącego najdalej po lewej stronie)
+e.layerX e.layerY; // Zwraca pozycję X, Y na warstwie renderowania. Nie są to standardowe właściwości
+e.offsetX e.offsetY; // Zwraca pozycję X, Y kursora na od lewego górnego narożnika danego elementu
+x y; // W nowych wersjach przeglądarek są to aliasy dla clientX i clientYs
 ```
 
 ### Który przycisk myszki
 
 ```js
-// TODO
+// 0 - prawy przycisk myszy
+// 1 - środkowy przycisk myszy
+// 2 - prawy przycisk myszy
+const btn = document.querySelector('.btn');
+btn.addEventListener('mousedown', (e) => {
+   console.log(e.button);
+});
+```
+
+### Wywołanie powszechnych zdarzeń
+
+```js
+// metody służące do wywołania danego zdarzenia
+// na danych elementach
+element.click(); //kliknęliśmy w element
+element.select(); //zaznaczamy element (tekst w inpucie)
+element.focus(); //wybieramy element (jak za pomocą klawiatury)
+element.blur(); //opuszczamy element
+form.submit(); //wysyłamy formularz
+form.reset(); //resetujemy formularz
+
+const button = document.querySelector('button');
+button.addEventListener('click', (e) => {
+   console.log('klik!!!');
+});
+
+button.click();
+```
+
+### Event
+
+```js
+// konstruktor Event służy do tworzenia
+// nowego zdarzenia
+let btn = document.querySelector('.btn');
+
+ btn.addEventListener('eventName', function () {
+        console.log('Naciśnięto');
+ });
+
+let clickEvent = new Event('eventName'); // tworzymy zdarzenie
+btn.dispatchEvent(clickEvent); // wywołujemy zdarzenie
+
+// do konstruktora możemy przekazać dodatkowy obiekt
+// który pozwala ustawić cechy danego zdarzenia
+const event = new Event("load", {
+    "bubbles"    : false, //czy zdarzenie ma iść w górę dokumentu
+    "cancelable" : false  //czy można je zatrzymać,
+    "composed"   : false //czy dane zdarzenie będzie podążać z shadow DOM do DOM
+});
+
+// wyróżniamy też zdarzenia dla:
+// MouseEvent
+// KeyboardEvent
+// InputEvent
+// ... i inne
+const event = new MouseEvent("click", {
+    bubbles: true,
+    cancelable: true,
+    clientX: 200,
+    clientY: 200
+});
+
+console.log(event.clientX); // 200
 ```
